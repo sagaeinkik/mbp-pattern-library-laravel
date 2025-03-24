@@ -1,0 +1,4 @@
+name: laravel-pattern-library
+recipe: laravel
+config:
+  webroot: public
