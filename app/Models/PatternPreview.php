@@ -23,7 +23,7 @@ class PatternPreview extends Model
     protected function imagePath(): Attribute 
     {
         return Attribute::make(
-            get: fn () => !empty($this->image_path) ? url('storage/pattern-previews' . $this->image_path) : null,
+            get: fn () => !empty($this->image_path) ? url('storage/pattern-previews/' . $this->image_path) : null,
         );
     }
 
