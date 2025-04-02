@@ -1,4 +1,4 @@
-import WPSitesLayout from "../WPsitesLayout";
+import WPSitesLayout from "../../layouts/WPsitesLayout";
 
 export default function WPSitesIndex() {
     return (
