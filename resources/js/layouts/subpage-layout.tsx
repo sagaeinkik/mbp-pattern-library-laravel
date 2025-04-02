@@ -10,7 +10,7 @@ interface SubPageLayoutProps {
     navItems: NavItem[];
 }
 
-const SubPageLayout = ({ children, breadcrumbs, navItems }: SubPageLayoutProps) => {
+export default function SubPageLayout({ children, breadcrumbs, navItems }: SubPageLayoutProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <SubPageSubMenu navItems={navItems}/>
@@ -20,5 +20,3 @@ const SubPageLayout = ({ children, breadcrumbs, navItems }: SubPageLayoutProps) 
         </AppLayout>
     )
 }
-
-export default SubPageLayout

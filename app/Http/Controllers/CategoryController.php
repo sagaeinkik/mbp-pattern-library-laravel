@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         // Render view with categories
-        return Inertia::render("categories", [
+        return Inertia::render("categories/index", [
             "categories" => $categories
         ]);
     }

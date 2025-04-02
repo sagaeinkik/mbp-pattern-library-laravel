@@ -31,12 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Patterns
     Route::get("patterns", function (){
-        return Inertia::render("patterns");
+        return Inertia::render("patterns/index");
     })->name("patterns.index");
 
     //Wordpress sites
     Route::get("wordpress", function (){
-        return Inertia::render("wpsites");
+        return Inertia::render("wpsites/index");
     })->name("wordpress.index");
 });
 

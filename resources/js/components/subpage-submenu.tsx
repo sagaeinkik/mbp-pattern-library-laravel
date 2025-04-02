@@ -9,7 +9,7 @@ interface SubMenuProps {
     title?: string; 
 }
 
-const SubPageSubMenu = ({ navItems, title} : SubMenuProps) => {
+export default function SubPageSubMenu ({ navItems, title }: SubMenuProps) {
     const page = usePage<SharedData>();
     return (
         <div className="border-b ml-3 mr-4 py-3">
@@ -32,5 +32,3 @@ const SubPageSubMenu = ({ navItems, title} : SubMenuProps) => {
         </div>
     )
 }
-
-export default SubPageSubMenu
