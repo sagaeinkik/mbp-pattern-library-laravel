@@ -1,4 +1,5 @@
 import CategoriesLayout from "@/layouts/CategoriesLayout";
+import CategoryCard from "@/components/category-card";
 
 //Interfaces
 interface Category {
@@ -14,15 +15,14 @@ interface CategoriesIndexProps {
 export default function CategoriesIndex({ categories }: CategoriesIndexProps) {
   return (
     <CategoriesLayout title="Categories">
-        <h1>Categories Index</h1>
+        <h1 className="text-2xl">Available categories</h1>
+        <div className="my-4 flex flex-wrap grow gap-4 w-full">
         {
             categories.map((category: Category) => (
-                <div key={category.id}>
-                    <p>ID: {category.id}</p>
-                    <p>Name: {category.name}</p>
-                </div>
+                <CategoryCard key={category.id} category={category} />
             ))
         }
+        </div>
     </CategoriesLayout>
   )
 }

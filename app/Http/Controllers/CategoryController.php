@@ -35,7 +35,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validate
+        $validCategory = $request->validate([
+            "name" => "required|min:2|max:255|unique:categories"
+        ]);
+
+        //Add to db
+        Category::create($validCategory);
+
+        //Redirect to index
+        return to_route("categories.index");
     }
 
     /**
@@ -43,7 +52,19 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Get category
+        $category = Category::find($id);
+
+        // Render view with category
+        if($category) {
+
+            return Inertia::render("categories/show-category", [
+                "category" => $category
+            ]);
+        } else {
+            // Render 404 component
+            return Inertia::render("not-found");
+        };
     }
 
     /**

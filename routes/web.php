@@ -29,7 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Categories
     Route::resource("categories", CategoryController::class)->names([
         "index" => "categories.index", 
-        "create" => "categories.add",
+        "create" => "categories.create",
+        "store" => "categories.store", 
+        "show" => "categories.show"
     ]);
 
     //Patterns
@@ -41,7 +43,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get("wordpress", function (){
         return Inertia::render("wpsites/index");
     })->name("wordpress.index");
+
+
+    //Catch-all authenticated
+    Route::fallback(function () {
+        return Inertia::render('not-found');
+    });
 });
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

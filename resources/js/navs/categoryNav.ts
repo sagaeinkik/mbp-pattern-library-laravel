@@ -10,12 +10,8 @@ const categoryNav: NavItem[] = [
     },
     {
         title: "Add category",
-        href: route("categories.add"),
+        href: route("categories.create"),
         icon: CirclePlus
-    }, 
-    {
-        title: "Something", 
-        href: "#"
     }
 ];
 
