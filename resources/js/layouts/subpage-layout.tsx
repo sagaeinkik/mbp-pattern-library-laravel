@@ -14,7 +14,7 @@ export default function SubPageLayout({ children, breadcrumbs, navItems }: SubPa
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <SubPageSubMenu navItems={navItems}/>
-            <div className="p-4">
+            <div className="p-4 text-bread">
                 {children}
             </div>
         </AppLayout>

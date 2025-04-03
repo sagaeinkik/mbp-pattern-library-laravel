@@ -27,7 +27,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     //Categories
-    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::resource("categories", CategoryController::class)->names([
+        "index" => "categories.index", 
+        "create" => "categories.add",
+    ]);
 
     //Patterns
     Route::get("patterns", function (){
