@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pattern_previews', function (Blueprint $table) {
             $table->id();
-            $table->text('image_path');
+            $table->string('image_path');
             $table->foreignId('pattern_id')->constrained()->onDelete("cascade");
             $table->timestamps();
         });
