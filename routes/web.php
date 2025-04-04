@@ -44,11 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render("wpsites/index");
     })->name("wordpress.index");
 
-
-    //Catch-all authenticated
-    Route::fallback(function () {
-        return Inertia::render('not-found');
-    });
 });
 
 

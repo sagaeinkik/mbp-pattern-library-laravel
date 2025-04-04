@@ -192,3 +192,11 @@
         @apply bg-background text-foreground;
     }
 }
+
+#categorysearch {
+    border: none; 
+    border-bottom: 1px solid var(--foreground-links);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 1em 1em 1em 3em; 
+}

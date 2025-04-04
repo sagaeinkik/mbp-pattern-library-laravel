@@ -50,35 +50,34 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        // Get category
-        $category = Category::find($id);
-
         // Render view with category
         if($category) {
 
             return Inertia::render("categories/show-category", [
                 "category" => $category
             ]);
-        } else {
-            // Render 404 component
-            return Inertia::render("not-found");
-        };
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+
+        if($category) {
+            return Inertia::render("categories/edit-category", [
+                "category" => $category
+            ]);
+        } 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -86,7 +85,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
         //
     }

@@ -24,7 +24,7 @@ export default function AddCategory() {
           <label htmlFor="name">Category name:</label>
           { errors.name && <p className="text-red-500">{errors.name}</p> }
           <Input type="text" id="name" className="my-4" value={data.name} onChange={e => setData("name", e.target.value)}/>
-          <Button type="submit" className="mt-4 cursor-pointer">Add Category</Button>
+          <Button type="submit" className="mt-4 cursor-pointer">{ processing ? "Adding category" : "Add category"}</Button>
         </form>
     </CategoriesLayout>
   )
