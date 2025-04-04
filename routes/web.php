@@ -28,10 +28,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Categories
     Route::resource("categories", CategoryController::class)->names([
-        "index" => "categories.index", 
-        "create" => "categories.create",
-        "store" => "categories.store", 
-        "show" => "categories.show"
+        "index" => "categories.all", 
+        "create" => "categories.add",
+        "store" => "categories.new", 
+        "show" => "categories.details", 
+        "edit" => "categories.edit",
+        "update" => "categories.update", 
+        "destroy" => "categories.delete"
     ]);
 
     //Patterns

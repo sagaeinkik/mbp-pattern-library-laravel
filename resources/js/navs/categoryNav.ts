@@ -5,12 +5,12 @@ import { CirclePlus, List } from 'lucide-react';
 const categoryNav: NavItem[] = [
     {
         title: "All categories",
-        href: route("categories.index"),
+        href: route("categories.all"),
         icon: List
     },
     {
         title: "Add category",
-        href: route("categories.create"),
+        href: route("categories.add"),
         icon: CirclePlus
     }
 ];

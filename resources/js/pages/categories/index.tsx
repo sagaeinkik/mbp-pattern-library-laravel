@@ -9,12 +9,8 @@ interface Category {
     name: string;
 }
 
-interface CategoriesIndexProps {
-    categories: Category[];
-}
 
-
-export default function CategoriesIndex({ categories }: CategoriesIndexProps) {
+export default function CategoriesIndex({ categories }: { categories: Category[]}) {
     // Search vars
     const [searchQuery, setSearchQuery] = useState<string>('');
 

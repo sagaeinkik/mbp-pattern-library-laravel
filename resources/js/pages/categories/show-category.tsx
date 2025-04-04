@@ -2,19 +2,22 @@ import CategoriesLayout from "@/layouts/CategoriesLayout"
 import { Link } from "@inertiajs/react"
 import { ArrowLeft } from "lucide-react";
 
-export default function ShowCategory( { category }: any) {
-    const breadCrumbs = [
-        { title: category.name, href: route("categories.show", { id: category.id }) }
-    ];
+export default function ShowCategory({ category }: any) {
+  const breadCrumbs = [
+    { title: category.name, href: route("categories.details", { id: category.id }) }
+  ];
 
 
   return (
     <CategoriesLayout title={category.name + " details"} breadcrumbs={breadCrumbs}>
-        <Link href={route("categories.index")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground items-center"><ArrowLeft size={15} />Back to all categories</Link>
+      <Link href={route("categories.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground items-center"><ArrowLeft size={15} />Back to all categories</Link>
+      <div className="flex justify-between items-center w-9/12 mb-4">
         <h1 className="text-2xl">{category.name}</h1>
-        <p>If there are any patterns in this category, use a random image off one of them to use as an example pic for the category</p>
-        <h2 className="text-xl mt-6">Patterns in this category</h2>
-        <p>(Add previews of patterns in this category later)</p>
+        <Link as="button" href={route("categories.edit", { category: category })} className="my-2 bg-secondary py-2 px-4 rounded-md text-sm hover:bg-primary">Handle category</Link>
+      </div>
+      <p>If there are any patterns in this category, use a random image off one of them to use as an example pic for the category</p>
+      <h2 className="text-xl mt-6">Patterns in this category</h2>
+      <p>(Add previews of patterns in this category later)</p>
     </CategoriesLayout>
   )
 }

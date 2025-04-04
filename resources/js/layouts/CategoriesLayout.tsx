@@ -18,7 +18,7 @@ export default function CategoriesLayout({ title, children, breadcrumbs = [] }: 
     const defaultBreadcrumbs: BreadcrumbItem[] = [
         {
           title: 'Categories',
-          href: route('categories.index'),
+          href: route('categories.all'),
         },
       ];
 

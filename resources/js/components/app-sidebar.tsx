@@ -21,7 +21,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: "Categories", 
-        href: route("categories.index"),
+        href: route("categories.all"),
         icon: Shapes
     },
     {

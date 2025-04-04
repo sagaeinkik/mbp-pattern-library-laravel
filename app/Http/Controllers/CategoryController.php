@@ -44,7 +44,7 @@ class CategoryController extends Controller
         Category::create($validCategory);
 
         //Redirect to index
-        return to_route("categories.index");
+        return to_route("categories.all");
     }
 
     /**
@@ -79,7 +79,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        //Validate
+        $validCategory = $request->validate([
+            "name" => "required|min:2|max:255|unique:categories"
+        ]);
+
+        //Update in db
+        $category->update($validCategory);
+
+        //Redirect to index
+        return to_route("categories.all");
     }
 
     /**
@@ -87,6 +96,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        //Delete from db
+        $category::destroy($category->id);
+
+        //Redirect to index
+        return to_route("categories.all");
     }
 }

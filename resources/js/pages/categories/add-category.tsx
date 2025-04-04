@@ -9,12 +9,12 @@ export default function AddCategory() {
   //Form submit
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    post(route('categories.store'));
+    post(route('categories.new'));
   }
 
   //Crumbs
   const breadCrumbs = [
-    { title: "Add category", href: route("categories.create") }
+    { title: "Add category", href: route("categories.new") }
 ];
 
   return (

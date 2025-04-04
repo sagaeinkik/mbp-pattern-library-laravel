@@ -200,3 +200,11 @@
     border-bottom-right-radius: 0px;
     padding: 1em 1em 1em 3em; 
 }
+
+p {
+    max-width: 60rem;
+}
+
+button {
+    cursor: pointer;
+}
