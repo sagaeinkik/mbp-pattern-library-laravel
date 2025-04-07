@@ -20,10 +20,10 @@ export default function AddCategory() {
   return (
     <CategoriesLayout title="Add Category" breadcrumbs={breadCrumbs}>
         <h1 className="text-2xl">Add new Category</h1>
-        <form method="post" className="mt-4 md:w-4/5 lg:w" onSubmit={formSubmit}>
+        <form className="mt-4 md:w-4/5 lg:w" onSubmit={formSubmit}>
           <label htmlFor="name">Category name:</label>
           { errors.name && <p className="text-red-500">{errors.name}</p> }
-          <Input type="text" id="name" className="my-4" value={data.name} onChange={e => setData("name", e.target.value)}/>
+          <Input type="text" id="name" className="mt-2 mb-4" value={data.name} onChange={e => setData("name", e.target.value)}/>
           <Button type="submit" className="mt-4 cursor-pointer">{ processing ? "Adding category" : "Add category"}</Button>
         </form>
     </CategoriesLayout>

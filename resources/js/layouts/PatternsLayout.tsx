@@ -16,7 +16,7 @@ export default function PatternsLayout({ title, children, breadcrumbs = [] }: Pa
   const defaultBreadcrumbs: BreadcrumbItem[] = [
     {
       title: 'Patterns',
-      href: route('patterns.index'),
+      href: route('patterns.all'),
     },
   ];
   //Extra crumbs

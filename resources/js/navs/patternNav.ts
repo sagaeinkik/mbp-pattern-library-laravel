@@ -5,17 +5,13 @@ import { CirclePlus, List } from 'lucide-react';
 const patternNav: NavItem[] = [
     {
         title: "All patterns",
-        href: route("patterns.index"),
+        href: route("patterns.all"),
         icon: List
     },
     {
         title: "Add pattern",
-        href: "#",
+        href: route("patterns.add"),
         icon: CirclePlus
-    }, 
-    {
-        title: "Something else entirely", 
-        href: "#"
     }
 ];
 

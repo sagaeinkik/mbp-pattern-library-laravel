@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatternController;
 use App\Http\Controllers\CategoryController;
 
 
@@ -37,10 +38,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "destroy" => "categories.delete"
     ]);
 
-    //Patterns
-    Route::get("patterns", function (){
-        return Inertia::render("patterns/index");
-    })->name("patterns.index");
+    Route::resource("patterns", PatternController::class)->names([
+        "index" => "patterns.all",
+        "create" => "patterns.add", 
+        "store" => "patterns.new",
+    ]);
 
     //Wordpress sites
     Route::get("wordpress", function (){

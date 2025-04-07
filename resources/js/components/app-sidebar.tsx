@@ -16,7 +16,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: "Patterns", 
-        href: route("patterns.index"),
+        href: route("patterns.all"),
         icon: Sparkle
     },
     {
