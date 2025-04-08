@@ -24,7 +24,7 @@ export default function CategoriesIndex({ categories }: { categories: Category[]
             <Searchbar onSearch={setSearchQuery} placeholder="Search categories" className="md:w-1/2"/>
             <h1 className="text-2xl">Available categories</h1>
             { filteredCategories.length === 0 ? <p>No categories available</p> : ""}
-            <div className="my-4 flex flex-wrap grow gap-4 w-full max-w-7xl">
+            <div className="my-4 flex flex-wrap grow gap-4 w-full">
                 {
                     filteredCategories.map((category: Category) => (
                         <CategoryCard key={category.id} category={category} />

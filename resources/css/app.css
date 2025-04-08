@@ -86,6 +86,9 @@
     /* Cards */
     --color-default-card: var(--default-card);
     --color-default-hover: var(--default-hover);
+
+    /* Max width */
+    --spacing-8xl: 95rem;
 }
 
 /*

@@ -19,7 +19,7 @@ export default function Searchbar({ onSearch, placeholder = "Search...", classNa
     }
 
     return (
-        <div className="max-w-7xl mt-1 mb-4 relative">
+        <div className="mt-1 mb-4 relative">
             <label htmlFor="categorysearch" className="text-primary-foreground-links"><Search size={18} className="absolute top-2 left-1" /></label>
             <Input type="search" value={query} onChange={handleChange} placeholder={placeholder} id="categorysearch" className={className}/>
         </div>

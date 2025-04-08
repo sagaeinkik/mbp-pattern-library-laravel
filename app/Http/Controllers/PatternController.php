@@ -17,7 +17,6 @@ class PatternController extends Controller
     public function index()
     {
         $patterns = Pattern::with(["patternPreviews", "category"])->get();
-        /* dd($patterns); */
 
         return Inertia::render("patterns/index", [
             "patterns" => $patterns, 
