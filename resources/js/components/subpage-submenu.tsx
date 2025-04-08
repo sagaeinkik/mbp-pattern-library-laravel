@@ -18,7 +18,7 @@ export default function SubPageSubMenu ({ navItems, title }: SubMenuProps) {
                     {navItems.map((item, index) => (
                         <NavigationMenuItem key={index} className="relative">
                             <Link
-                                href={item.href} className="text-primary-foreground-links py-2 px-4 rounded-md text-sm flex gap-2 items-center text-bread ">
+                                href={item.href} className="text-primary-foreground-links py-2 px-4 rounded-md text-sm flex gap-2 items-center text-bread hover:bg-accent hover:text-accent-foreground">
                                 {item.icon && <Icon iconNode={item.icon} />}
                                 {item.title}
                             </Link>

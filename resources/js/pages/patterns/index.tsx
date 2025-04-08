@@ -47,7 +47,7 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
 
     return (
         <PatternsLayout title="Patterns">
-            <div className="w-full md:grid md:grid-cols-2 gap-4 justify-between items-end">
+            <div className="w-full md:grid md:grid-cols-2 gap-5 justify-between items-end">
                 <Searchbar onSearch={setSearchQuery} placeholder="Search patterns"/>
                 <SelectList onChange={setSearchFilter} options={categories} listId="categorySelect" label="Category" />
             </div>
