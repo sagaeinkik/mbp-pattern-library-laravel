@@ -5,18 +5,15 @@ import { Link } from "@inertiajs/react";
 interface Category {
     id: number;
     name: string;
-}
-
-interface CategoriesIndexProps {
-    category: Category;
+    pattern_count: number;
 }
 
 
-export default function CategoryCard({ category }: CategoriesIndexProps) {
+export default function CategoryCard({ category }: { category: Category }) {
   return (
-    <Link href={route("categories.details", {id: category.id})} as="div" className="bg-category-card hover:bg-category-hover p-4 rounded-md cursor-pointer basis-60 grow">
+    <Link href={route("categories.details", {id: category.id})} as="div" className="border hover:bg-default-card p-4 rounded-md cursor-pointer basis-60 grow max-w-2xl">
         <p className="text-lg">{category.name}</p>
-        <p className="text-sm mt-3">Patterns: 0</p> {/* Make this a count */}
+        <p className="text-sm mt-3">Patterns: { category.pattern_count } </p> 
     </Link>
   )
 }

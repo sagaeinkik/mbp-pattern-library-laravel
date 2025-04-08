@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\PatternPreview;
 use Illuminate\Http\Request;
 use App\Http\Requests\Pattern\PatternRequest;
-use App\Http\Requests\PatternPreview\PatternPreviewRequest;
 
 class PatternController extends Controller
 {
@@ -17,10 +16,11 @@ class PatternController extends Controller
      */
     public function index()
     {
-        $patterns = Pattern::all();
+        $patterns = Pattern::with(["patternPreviews", "category"])->get();
+        /* dd($patterns); */
 
         return Inertia::render("patterns/index", [
-            "patterns" => $patterns
+            "patterns" => $patterns, 
         ]);
     }
 
@@ -45,22 +45,25 @@ class PatternController extends Controller
         $request = request();
         //Validate 
         $validatedPattern = $patternRequest->validated(); 
+        /* dd($validatedPattern); */
+        
         //Create pattern
         $pattern = Pattern::create($validatedPattern);
 
 
-        //loop
-        foreach($request->file("pattern_previews") as $image) {
-            //Store image
-            $imagePath = $image->store("pattern-previews", "public");
-
-            //Create pattern preview
-            PatternPreview::create([
-                "image_path" => $imagePath,
-                "pattern_id" => $pattern->id
-            ]);
+        //Store all images
+        if (isset($validatedPattern->pattern_previews) && count($validatedPattern->pattern_previews) > 0) {
+            foreach($request->file("pattern_previews") as $image) {
+                $imagePath = $image->store("pattern-previews", "public");
+    
+                //Create pattern preview
+                PatternPreview::create([
+                    "image_path" => $imagePath,
+                    "pattern_id" => $pattern->id
+                ]);
+            }
         }
-        
+
         //Redirect to patterns page
         return to_route("patterns.all");
     }

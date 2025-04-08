@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -23,7 +24,7 @@ class PatternPreview extends Model
     protected function imagePath(): Attribute 
     {
         return Attribute::make(
-            get: fn () => !empty($this->image_path) ? url('storage/pattern-previews/' . $this->image_path) : null,
+            get: fn ($value) => !empty($value) ? URL::asset("/storage/$value") : null,
         );
     }
 

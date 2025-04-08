@@ -84,8 +84,8 @@
     --color-sidebar-ring: var(--sidebar-ring);
 
     /* Cards */
-    --color-category-card: var(--category-card);
-    --color-category-hover: var(--category-hover);
+    --color-default-card: var(--default-card);
+    --color-default-hover: var(--default-hover);
 }
 
 /*
@@ -141,8 +141,8 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: #D9EAFD;
     --sidebar-ring: oklch(0.87 0 0);
-    --category-card: #D9EAFD;
-    --category-hover: #FDCEC9;
+    --default-card: #D9EAFD;
+    --default-hover: #FDCEC9;
 }
 
 .dark {
@@ -179,8 +179,8 @@
     --sidebar-accent-foreground: oklch(0.985 0 0); /* Text for user on sidebar */
     --sidebar-border: #202A30;
     --sidebar-ring: oklch(0.439 0 0);
-    --category-card: #202A30;
-    --category-hover: #471E27;
+    --default-card: #202A30;
+    --default-hover: #471E27;
 }
 
 @layer base {

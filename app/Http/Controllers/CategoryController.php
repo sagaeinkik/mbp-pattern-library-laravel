@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         // Get all categories
-        $categories = Category::all();
+        $categories = Category::withCount("pattern")->get();
 
         // Render view with categories
         return Inertia::render("categories/index", [

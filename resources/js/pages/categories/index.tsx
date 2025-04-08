@@ -7,6 +7,7 @@ import { useState } from "react";
 interface Category {
     id: number;
     name: string;
+    pattern_count: number;
 }
 
 
