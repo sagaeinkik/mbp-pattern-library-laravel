@@ -1,8 +1,30 @@
 import CategoriesLayout from "@/layouts/CategoriesLayout"
 import { Link } from "@inertiajs/react"
 import { ArrowLeft } from "lucide-react";
+import PatternCard from "@/components/pattern-card";
 
-export default function ShowCategory({ category }: any) {
+interface Category {
+  id: number;
+  name: string;
+  pattern: Pattern[] | [];
+}
+
+interface Pattern {
+  id: number;
+  title: string;
+  description: string;
+  pattern_data: string;
+  category_id: number;
+  pattern_previews: PatternPreview[] | []
+}
+
+interface PatternPreview {
+  id: number; 
+  pattern_id: number;
+  image_path: string;
+}
+
+export default function ShowCategory({ category }: { category: Category }) {
   const breadCrumbs = [
     { title: category.name, href: route("categories.details", { id: category.id }) }
   ];
@@ -16,8 +38,16 @@ export default function ShowCategory({ category }: any) {
         <Link as="button" href={route("categories.edit", { category: category })} className="my-2 bg-secondary py-2 px-4 rounded-md text-sm hover:bg-primary">Handle category</Link>
       </div>
       <p>If there are any patterns in this category, use a random image off one of them to use as an example pic for the category</p>
+      
       <h2 className="text-xl mt-6">Patterns in this category</h2>
-      <p>(Add previews of patterns in this category later)</p>
+      { category.pattern.length === 0 ? <p>No patterns available</p> : ""}
+      <div className="my-4 flex flex-wrap grow gap-4 w-full max-w-6xl">
+        {
+          category.pattern.map((pattern: Pattern) => (
+            <PatternCard key={pattern.id} pattern={pattern} />
+          ))
+        }
+      </div>
     </CategoriesLayout>
   )
 }

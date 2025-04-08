@@ -50,10 +50,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id)
     {
+        //Get category with patterns and images included
+        $category = Category::where("id", $id)->with("pattern.patternPreviews")->first();
         // Render view with category
-        if($category) {
+        if ($category) {
 
             return Inertia::render("categories/show-category", [
                 "category" => $category
@@ -67,11 +69,11 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
 
-        if($category) {
+        if ($category) {
             return Inertia::render("categories/edit-category", [
                 "category" => $category
             ]);
-        } 
+        }
     }
 
     /**

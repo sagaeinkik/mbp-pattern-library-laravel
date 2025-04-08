@@ -52,7 +52,7 @@ class PatternController extends Controller
 
 
         //Store all images
-        if (isset($validatedPattern->pattern_previews) && count($validatedPattern->pattern_previews) > 0) {
+        if (isset($validatedPattern["pattern_previews"]) && count($validatedPattern["pattern_previews"]) > 0) {
             foreach($request->file("pattern_previews") as $image) {
                 $imagePath = $image->store("pattern-previews", "public");
     
