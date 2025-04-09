@@ -34,7 +34,7 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
 
             <h1 className="text-2xl">Available patterns</h1>
             {filteredPatterns.length === 0 ? <p>No patterns available</p> : ""}
-            <div className="my-4 flex flex-wrap grow gap-4 w-full">
+            <div className="my-4 flex flex-wrap gap-4 w-full">
                 {
                     filteredPatterns.map((pattern) => (
                         <PatternCard key={pattern.id} pattern={pattern} />

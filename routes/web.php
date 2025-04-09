@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "index" => "patterns.all",
         "create" => "patterns.add", 
         "store" => "patterns.new",
+        "show" => "patterns.details",
     ]);
 
     //Wordpress sites

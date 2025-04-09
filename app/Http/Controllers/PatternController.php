@@ -68,9 +68,14 @@ class PatternController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Pattern $pattern)
     {
-        //
+        //Get pattern with previews and category
+        $pattern = Pattern::with(["patternPreviews", "category"])->find($pattern->id);
+
+        return Inertia::render("patterns/show-pattern", [
+            "pattern" => $pattern
+        ]);
     }
 
     /**
