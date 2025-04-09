@@ -3,28 +3,8 @@ import PatternCard from "@/components/pattern-card";
 import Searchbar from "@/components/searchbar";
 import SelectList from "@/components/select-list";
 import { useState } from "react";
+import { Pattern } from "@/types/patterns";
 
-//Interfaces
-interface PatternPreview {
-    id: number;
-    pattern_id: number;
-    image_path: string;
-}
-
-interface Category {
-    id: number;
-    name: string;
-}
-
-interface Pattern {
-    id: number;
-    title: string;
-    description: string;
-    pattern_data: string;
-    category_id: number;
-    pattern_previews: PatternPreview[]
-    category: Category;
-}
 
 
 export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
@@ -32,7 +12,7 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
     const [searchFilter, setSearchFilter] = useState<string>("All");
 
     //Unique categories
-    let categories = patterns.map((pattern) => pattern.category.name);
+    let categories = patterns.map((pattern) => pattern.category!.name);
     categories = Array.from(new Set<string>(categories));
 
     // Filters
@@ -40,7 +20,7 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
     let filteredPatterns = initialPatterns;
     //Category filter
     if (searchFilter !== "" && searchFilter !== "All") {
-        filteredPatterns = initialPatterns.filter((pattern: Pattern) => pattern.category.name === searchFilter);
+        filteredPatterns = initialPatterns.filter((pattern: Pattern) => pattern.category!.name === searchFilter);
     }
     //Search query filter
     filteredPatterns = filteredPatterns.filter((pattern: Pattern) => pattern.title.toLowerCase().includes(searchQuery.toLowerCase()));

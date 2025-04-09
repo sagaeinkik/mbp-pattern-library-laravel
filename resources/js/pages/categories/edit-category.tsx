@@ -3,12 +3,7 @@ import { Input } from "@/components/ui/input"
 import CategoriesLayout from "@/layouts/CategoriesLayout"
 import { Link, useForm, router } from "@inertiajs/react"
 import { useState } from "react"; 
-
-//Interfaces
-interface Category {
-    id: number;
-    name: string;
-}
+import { Category } from "@/types/categories";
 
 export default function EditCategory({ category }: { category: Category}) {
     const { errors, data, setData, put, processing } = useForm({ name: category.name

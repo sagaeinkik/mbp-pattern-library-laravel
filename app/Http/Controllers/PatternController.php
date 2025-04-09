@@ -44,11 +44,9 @@ class PatternController extends Controller
         $request = request();
         //Validate 
         $validatedPattern = $patternRequest->validated(); 
-        /* dd($validatedPattern); */
         
         //Create pattern
         $pattern = Pattern::create($validatedPattern);
-
 
         //Store all images
         if (isset($validatedPattern["pattern_previews"]) && count($validatedPattern["pattern_previews"]) > 0) {

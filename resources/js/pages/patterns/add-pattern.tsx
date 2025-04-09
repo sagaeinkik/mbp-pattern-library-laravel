@@ -2,14 +2,11 @@ import PatternsLayout from "@/layouts/PatternsLayout"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@inertiajs/react";
-
-interface Categories {
-    id: number;
-    name: string;
-}
+import { Category } from "@/types/categories";
 
 
-export default function AddPattern({ categories }: { categories: Categories[] }) {
+export default function AddPattern({ categories }: { categories: Category[] }) {
+    //Form data
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         description: "",

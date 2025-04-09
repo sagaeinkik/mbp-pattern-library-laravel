@@ -2,13 +2,7 @@ import CategoriesLayout from "@/layouts/CategoriesLayout";
 import CategoryCard from "@/components/category-card";
 import Searchbar from "@/components/searchbar";
 import { useState } from "react";
-
-//Interfaces
-interface Category {
-    id: number;
-    name: string;
-    pattern_count: number;
-}
+import { Category } from "@/types/categories";
 
 
 export default function CategoriesIndex({ categories }: { categories: Category[]}) {

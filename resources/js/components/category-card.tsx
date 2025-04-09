@@ -1,13 +1,5 @@
 import { Link } from "@inertiajs/react";
-
-
-//Interfaces
-interface Category {
-    id: number;
-    name: string;
-    pattern_count: number;
-}
-
+import { Category } from "@/types/categories";
 
 export default function CategoryCard({ category }: { category: Category }) {
   return (
