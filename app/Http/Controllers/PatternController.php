@@ -81,23 +81,32 @@ class PatternController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Pattern $pattern)
     {
-        //
+        //Get pattern with previews and category
+        $pattern = Pattern::with(["patternPreviews", "category"])->find($pattern->id);
+
+        //Get categories for dropdown in view
+        $categories = Category::all();
+
+        return Inertia::render("patterns/edit-pattern", [
+            "pattern" => $pattern,
+            "categories" => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PatternRequest $patternRequest, Pattern $pattern)
     {
-        //
+        //Functionality to update, add new images, and delete old images using their ID
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pattern $pattern)
     {
         //
     }

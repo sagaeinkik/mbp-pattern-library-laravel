@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import PatternCard from "@/components/pattern-card";
 import { Category } from "@/types/categories";
 import { Pattern } from "@/types/patterns";
+import ShowPageHeading from "@/components/ui/showpage-heading";
 
 
 export default function ShowCategory({ category }: { category: Category }) {
@@ -26,10 +27,7 @@ export default function ShowCategory({ category }: { category: Category }) {
   return (
     <CategoriesLayout title={category.name + " details"} breadcrumbs={breadCrumbs}>
       <Link href={route("categories.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground items-center w-fit"><ArrowLeft size={15} />Back to all categories</Link>
-      <div className="flex justify-between items-center w-full">
-        <h1 className="text-2xl">{category.name}</h1>
-        <Link as="button" href={route("categories.edit", { category: category })} className="my-2 bg-secondary py-2 px-4 rounded-md text-sm hover:bg-primary">Handle category</Link>
-      </div>
+      <ShowPageHeading headingText={category.name} route={route("categories.edit", {category: category})} value={"Handle category"} />
 
       { categoryImage() && <img src={categoryImage()} alt="Category example image" className="my-4 mx-auto max-h-1/3 rounded-md" />}
 

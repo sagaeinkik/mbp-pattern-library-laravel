@@ -43,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "create" => "patterns.add", 
         "store" => "patterns.new",
         "show" => "patterns.details",
+        "edit" => "patterns.edit",
     ]);
 
     //Wordpress sites
