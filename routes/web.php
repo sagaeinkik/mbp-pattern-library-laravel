@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "store" => "patterns.new",
         "show" => "patterns.details",
         "edit" => "patterns.edit",
+        "update" => "patterns.update",
     ]);
 
     //Wordpress sites

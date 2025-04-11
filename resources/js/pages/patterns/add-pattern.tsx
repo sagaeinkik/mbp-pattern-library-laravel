@@ -14,15 +14,6 @@ import { handleNewFiles, handleDeletePreview, cleanUpThumbnails } from "@/lib/pa
 
 
 export default function AddPattern({ categories }: { categories: Category[] }) {
-    //Form data
-    const { data, setData, post, processing, errors } = useForm({
-        title: "",
-        description: "",
-        pattern_data: "",
-        category_id: "",
-        pattern_previews: [] as File[],
-    });
-
     //States and refs
     const [imageThumbnails, setImageThumbnails] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -32,28 +23,19 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
         { title: "Add pattern", href: route("patterns.add") }
     ]
 
+    //Form data
+    const { data, setData, post, processing, errors } = useForm({
+        title: "",
+        description: "",
+        pattern_data: "",
+        category_id: "",
+        pattern_previews: [] as File[],
+    });
+
     // Form submission
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        //Save form data
-        const formData = new FormData();
-        formData.append("title", data.title);
-        formData.append("description", data.description);
-        formData.append("pattern_data", data.pattern_data);
-        formData.append("category_id", data.category_id);
-
-        //Check for images
-        if (data.pattern_previews.length > 0) {
-            data.pattern_previews.forEach((file) => {
-                formData.append("pattern_previews[]", file);
-            });
-        }
-
-        post(route("patterns.new", {
-            data: formData,
-            forceFormData: true
-        }))
+        post(route("patterns.new"))
     }
 
     //Dismount cleanup thumbnail URLS
@@ -93,7 +75,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
                 <h2 className="text-xl">Preview images</h2>
                 <label htmlFor="pattern_previews[]" className="bg-secondary hover:bg-primary rounded-md py-2 px-4 my-4 block w-fit cursor-pointer text-sm">Add image</label>
                 {errors.pattern_previews && <p className="text-red-500">{errors.pattern_previews}</p>}
-                <input type="file" multiple id="pattern_previews[]" name="pattern_previews[]" onChange={(e) => handleNewFiles(e, setData, setImageThumbnails, fileInputRef)} ref={fileInputRef} className="hidden" />
+                <input type="file" multiple id="pattern_previews[]" name="pattern_previews[]" onChange={(e) => handleNewFiles(e, setData, setImageThumbnails)} ref={fileInputRef} className="hidden" />
 
                 {/* Preview thumbnails */}
                 {imageThumbnails.length > 0 && (

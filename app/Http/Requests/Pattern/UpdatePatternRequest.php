@@ -4,7 +4,7 @@ namespace App\Http\Requests\Pattern;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PatternRequest extends FormRequest
+class UpdatePatternRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,9 @@ class PatternRequest extends FormRequest
             "pattern_data" => "required",
             "category_id" => "required|exists:categories,id",
             "pattern_previews" => "nullable|array",
-            "pattern_previews.*" => "image|mimes:jpeg,png,jpg,gif|max:3000", 
+            "pattern_previews.*" => "image|mimes:jpeg,png,jpg,gif|max:3000",
+            "previews_to_delete" => "nullable|array",
+            "previews_to_delete.*" => "numeric|exists:pattern_previews,id",
         ];
     }
 }

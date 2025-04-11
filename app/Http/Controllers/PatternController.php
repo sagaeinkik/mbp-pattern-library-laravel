@@ -6,8 +6,8 @@ use Inertia\Inertia;
 use App\Models\Pattern;
 use App\Models\Category;
 use App\Models\PatternPreview;
-use Illuminate\Http\Request;
-use App\Http\Requests\Pattern\PatternRequest;
+use App\Http\Requests\Pattern\StorePatternRequest;
+use App\Http\Requests\Pattern\UpdatePatternRequest;
 
 class PatternController extends Controller
 {
@@ -39,7 +39,7 @@ class PatternController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PatternRequest $patternRequest)
+    public function store(StorePatternRequest $patternRequest)
     {
         $request = request();
         //Validate 
@@ -98,9 +98,40 @@ class PatternController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PatternRequest $patternRequest, Pattern $pattern)
+    public function update(UpdatePatternRequest $patternRequest, Pattern $pattern)
     {
-        //Functionality to update, add new images, and delete old images using their ID
+        $request = request();
+
+        //Validate
+        $validatedPattern = $patternRequest->validated();
+
+        //Update pattern
+        $pattern->update($validatedPattern);
+
+        //Check for previews to delete
+        if (isset($validatedPattern["previews_to_delete"]) && count($validatedPattern["previews_to_delete"]) > 0) {
+            foreach ($validatedPattern["previews_to_delete"] as $previewId) {
+                $preview = PatternPreview::find($previewId);
+                $preview->delete();
+
+                //Remove from storage 
+            }
+        }
+
+        //Store new previews
+        if (isset($validatedPattern["pattern_previews"]) && count($validatedPattern["pattern_previews"]) > 0) {
+            foreach($request->file("pattern_previews") as $image) {
+                $imagePath = $image->store("pattern-previews", "public");
+    
+                //Create pattern preview
+                PatternPreview::create([
+                    "image_path" => $imagePath,
+                    "pattern_id" => $pattern->id
+                ]);
+            }
+        }
+
+        return to_route("patterns.all");
     }
 
     /**

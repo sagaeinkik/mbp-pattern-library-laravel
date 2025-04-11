@@ -13,7 +13,7 @@ export default function ShowPatternPreviews({ patternPreviews, patternTitle, onD
             {
                 patternPreviews.map((preview, index) => (
                     <div key={preview.id} className="relative">
-                        <img src={preview.image_path} alt={`Preview ${index + 1} of pattern ${patternTitle}`} className="rounded-md max-w-72" />
+                        <img src={preview.image_path} alt={`Preview ${index + 1} of pattern ${patternTitle}`} className="h-52 w-52 object-cover rounded-md max-w-72" />
                         <DeletePatternImageButton index={index} onDelete={onDelete} />
                     </div>
                 ))

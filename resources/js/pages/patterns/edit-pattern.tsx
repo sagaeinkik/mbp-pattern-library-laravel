@@ -11,18 +11,19 @@ import { Category } from "@/types/categories"
 
 //Functions
 import { useState, useEffect, useRef } from "react"
-import { useForm } from "@inertiajs/react"
+import { router, useForm } from "@inertiajs/react"
 import { handleNewFiles, handleDeletePreview, cleanUpThumbnails } from "@/lib/patternThumbnails"
 
 export default function EditPattern({ pattern, categories }: { pattern: Pattern, categories: Category[] }) {
     //Form data
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         title: pattern.title,
         description: pattern.description,
         pattern_data: pattern.pattern_data,
         category_id: pattern.category_id,
-        pattern_previews: [] as File[]
-    });
+        pattern_previews: [] as File[],
+        previews_to_delete: [] as number[]
+        });
 
     //States and refs
     const [imageThumbnails, setImageThumbnails] = useState<string[]>([]);
@@ -32,6 +33,13 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
         { title: pattern.title, href: route("patterns.details", { pattern }) },
         { title: "Edit", href: route("patterns.edit", { pattern }) }
     ]
+
+    //Store IDs of previews to delete
+    let previewsToDelete: number[] = [];
+    const deleteExistingPreview = (index: number) => {
+        previewsToDelete.push(pattern.pattern_previews[index].id);
+        console.log(previewsToDelete);
+    }
 
     //Form submission
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,21 +52,26 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
         formData.append("pattern_data", data.pattern_data);
         formData.append("category_id", String(data.category_id));
 
-        //Check for images
+        //Check existing previews to delete
+        if (previewsToDelete.length > 0) {
+            previewsToDelete.forEach(id => {
+                formData.append("previews_to_delete[]", String(id));
+            })
+        }
+
+        //Check for new images to add
         if (data.pattern_previews.length > 0) {
             data.pattern_previews.forEach((file) => {
                 formData.append("pattern_previews[]", file);
             });
         }
 
-        put(route("patterns.new", {
-            data: formData,
-            forceFormData: true
-        }))
-    }
+        formData.append("_method", "put");
 
-    const deleteExistingPreview = (index: number) => {
-        
+        router.post(route("patterns.update", {pattern}), formData, { 
+            forceFormData: true
+        })
+
     }
 
     //Dismount cleanup thumbnail URLS
@@ -95,17 +108,17 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
 
                 {/* Existing previews */}
                 <h2 className="text-xl mt-4 mb-2">Existing previews</h2>
-                <ShowPatternPreviews patternPreviews={pattern.pattern_previews} patternTitle={pattern.title} onDelete={deleteExistingPreview}/>
+                <ShowPatternPreviews patternPreviews={pattern.pattern_previews} patternTitle={pattern.title} onDelete={deleteExistingPreview} />
 
                 {/* New previews */}
                 <h2 className="text-xl">Add more previews</h2>
                 <label htmlFor="pattern_previews[]" className="bg-secondary hover:bg-primary rounded-md py-2 px-4 my-4 block w-fit cursor-pointer text-sm">Add image</label>
                 {errors.pattern_previews && <p className="text-red-500">{errors.pattern_previews}</p>}
-                <input type="file" multiple id="pattern_previews[]" name="pattern_previews[]" onChange={(e) => handleNewFiles(e, setData, setImageThumbnails, fileInputRef)} ref={fileInputRef} className="hidden" />
+                <input type="file" multiple id="pattern_previews[]" name="pattern_previews[]" onChange={(e) => handleNewFiles(e, setData, setImageThumbnails)} ref={fileInputRef} className="hidden" />
 
                 {/* Preview thumbnails */}
                 {imageThumbnails.length > 0 && (
-                    <ShowThumbnails imageThumbnails={imageThumbnails} onDelete={(index) => handleDeletePreview(index, setImageThumbnails, setData, imageThumbnails, data)} /> 
+                    <ShowThumbnails imageThumbnails={imageThumbnails} onDelete={(index) => handleDeletePreview(index, setImageThumbnails, setData, imageThumbnails, data)} />
                 )}
 
                 <Button type="submit" className="mt-6 cursor-pointer">{processing ? "Saving changes" : "Save changes"}</Button>

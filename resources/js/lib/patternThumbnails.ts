@@ -20,7 +20,7 @@ export function handleDeletePreview(index: number, setImageThumbnails: Function,
 }
 
 // New files added in input field
-export function handleNewFiles(e: React.ChangeEvent<HTMLInputElement>, setData: Function, setImageThumbnails: Function, fileInputRef: React.RefObject<HTMLInputElement | null>) {
+export function handleNewFiles(e: React.ChangeEvent<HTMLInputElement>, setData: Function, setImageThumbnails: Function) {
     if (e.target.files) {
         const files = Array.from(e.target.files);
         setData("pattern_previews", files);
@@ -28,12 +28,6 @@ export function handleNewFiles(e: React.ChangeEvent<HTMLInputElement>, setData: 
         // create tumbnails
         const newPreviews = files.map(file => URL.createObjectURL(file));
         setImageThumbnails(newPreviews);
-        console.log(newPreviews);
-
-        // Reset file input
-        if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-        }
     }
 }
 
