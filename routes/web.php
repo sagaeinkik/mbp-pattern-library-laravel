@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "show" => "patterns.details",
         "edit" => "patterns.edit",
         "update" => "patterns.update",
+        "destroy" => "patterns.delete"
     ]);
 
     //Wordpress sites

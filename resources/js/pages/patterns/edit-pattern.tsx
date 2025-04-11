@@ -6,27 +6,30 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
 
 //Interfaces
-import { Pattern, PatternPreview } from "@/types/patterns"
+import { Pattern } from "@/types/patterns"
 import { Category } from "@/types/categories"
 
 //Functions
 import { useState, useEffect, useRef } from "react"
 import { router, useForm } from "@inertiajs/react"
 import { handleNewFiles, handleDeletePreview, cleanUpThumbnails } from "@/lib/patternThumbnails"
+import { handleConfirm } from "@/lib/deleteConfirm";
+
 
 export default function EditPattern({ pattern, categories }: { pattern: Pattern, categories: Category[] }) {
     //Form data
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, processing, errors } = useForm({
         title: pattern.title,
         description: pattern.description,
         pattern_data: pattern.pattern_data,
         category_id: pattern.category_id,
         pattern_previews: [] as File[],
         previews_to_delete: [] as number[]
-        });
+    });
 
     //States and refs
     const [imageThumbnails, setImageThumbnails] = useState<string[]>([]);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const breadCrumbs = [
@@ -38,7 +41,6 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
     let previewsToDelete: number[] = [];
     const deleteExistingPreview = (index: number) => {
         previewsToDelete.push(pattern.pattern_previews[index].id);
-        console.log(previewsToDelete);
     }
 
     //Form submission
@@ -68,10 +70,16 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
 
         formData.append("_method", "put");
 
-        router.post(route("patterns.update", {pattern}), formData, { 
+        router.post(route("patterns.update", { pattern }), formData, {
             forceFormData: true
         })
+    }
 
+    //Delete pattern
+    const handleDelete = () => {
+        if (confirmDelete) {
+            router.delete(route("patterns.delete", { pattern: pattern }));
+        }
     }
 
     //Dismount cleanup thumbnail URLS
@@ -116,13 +124,19 @@ export default function EditPattern({ pattern, categories }: { pattern: Pattern,
                 {errors.pattern_previews && <p className="text-red-500">{errors.pattern_previews}</p>}
                 <input type="file" multiple id="pattern_previews[]" name="pattern_previews[]" onChange={(e) => handleNewFiles(e, setData, setImageThumbnails)} ref={fileInputRef} className="hidden" />
 
-                {/* Preview thumbnails */}
+                {/* New previews thumbnails */}
                 {imageThumbnails.length > 0 && (
                     <ShowThumbnails imageThumbnails={imageThumbnails} onDelete={(index) => handleDeletePreview(index, setImageThumbnails, setData, imageThumbnails, data)} />
                 )}
 
-                <Button type="submit" className="mt-6 cursor-pointer">{processing ? "Saving changes" : "Save changes"}</Button>
+                <Button type="submit" className="my-6 cursor-pointer">{processing ? "Saving changes" : "Save changes"}</Button>
+
             </form>
+            
+            {/*  Delete pattern  */}
+            <h2 className="text-xl">Delete pattern</h2>
+            {confirmDelete && <p className="mt-3 text-red-600 dark:text-red-400">Are you absolutely certain you want to delete this pattern? This action cannot be undone. Deleted patterns and associated pattern previews cannot be recovered.</p>}
+            <Button className="bg-red-700 dark:bg-red-800 hover:bg-red-900 hover:text-background my-4 text-background dark:text-primary-foreground dark:hover:text-primary-foreground" onClick={() => { handleConfirm(confirmDelete, setConfirmDelete, handleDelete) }}>{confirmDelete ? "Confirm delete" : "Delete"}</Button>
         </PatternsLayout>
     )
 }

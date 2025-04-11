@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\PatternPreview;
 use App\Http\Requests\Pattern\StorePatternRequest;
 use App\Http\Requests\Pattern\UpdatePatternRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PatternController extends Controller
 {
@@ -112,9 +113,16 @@ class PatternController extends Controller
         if (isset($validatedPattern["previews_to_delete"]) && count($validatedPattern["previews_to_delete"]) > 0) {
             foreach ($validatedPattern["previews_to_delete"] as $previewId) {
                 $preview = PatternPreview::find($previewId);
-                $preview->delete();
 
                 //Remove from storage 
+                $imagePath = $preview->getRawOriginal("image_path");
+
+                if ($imagePath && Storage::disk("public")->exists($imagePath)) {
+                    Storage::disk("public")->delete($imagePath);
+                }
+
+                //Remove from db
+                $preview->delete();
             }
         }
 
@@ -139,6 +147,9 @@ class PatternController extends Controller
      */
     public function destroy(Pattern $pattern)
     {
-        //
+        
+        $pattern::destroy($pattern->id);
+
+        return to_route("patterns.all");
     }
 }

@@ -31,8 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if($exception->getStatusCode() === 404) {
                 return Inertia::render("not-found");
-            } /* else {
+            } else {
                 return Inertia::render("error");
-            } */
+            }
         });
     })->create();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Pattern extends Model
 {
@@ -25,4 +26,20 @@ class Pattern extends Model
     {
         return $this->hasMany(PatternPreview::class);
     }
+
+    protected static function booted() {
+        parent::boot();
+
+        static::deleting(function (Pattern $pattern) {
+
+            foreach ($pattern->patternPreviews as $preview) {
+                $imagePath = $preview->getRawOriginal("image_path");
+
+                if ($imagePath && Storage::disk("public")->exists($imagePath)) {
+                    Storage::disk("public")->delete($imagePath);
+                }
+            }
+        });
+    }
+
 }
