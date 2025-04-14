@@ -42,9 +42,6 @@ class CategoryController extends Controller
 
         //Add to db
         Category::create($validCategory);
-
-        //Redirect to index
-        return to_route("categories.all");
     }
 
     /**

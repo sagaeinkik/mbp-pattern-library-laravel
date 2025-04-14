@@ -1,16 +1,13 @@
 import CategoriesLayout from "@/layouts/CategoriesLayout"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useForm } from "@inertiajs/react"
+import { router } from "@inertiajs/react"
+import CategoryForm from "@/components/category-form"
 
 export default function AddCategory() {
-  const { errors, data, setData, post, processing } = useForm({ name: ""});
 
-  //Form submit
-  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    post(route('categories.new'));
-  }
+  //Redirect to categories page
+ const categorySuccess = () => {
+  router.visit(route("categories.all"));
+ }
 
   //Crumbs
   const breadCrumbs = [
@@ -19,13 +16,8 @@ export default function AddCategory() {
 
   return (
     <CategoriesLayout title="Add Category" breadcrumbs={breadCrumbs}>
-        <h1 className="text-2xl">Add new Category</h1>
-        <form className="mt-4 md:w-4/5 lg:w" onSubmit={formSubmit}>
-          <label htmlFor="name">Category name:</label>
-          { errors.name && <p className="text-red-500">{errors.name}</p> }
-          <Input type="text" id="name" className="mt-2 mb-4" value={data.name} onChange={e => setData("name", e.target.value)}/>
-          <Button type="submit" className="mt-4 cursor-pointer">{ processing ? "Adding category" : "Add category"}</Button>
-        </form>
+      <h1 className="text-2xl mb-4">Add new category</h1>
+       <CategoryForm catSuccess={categorySuccess} />
     </CategoriesLayout>
   )
 }

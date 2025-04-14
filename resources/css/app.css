@@ -7,6 +7,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import "react-image-gallery/styles/css/image-gallery.css";
+
 @theme {
     --font-sans:
         'Karla', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
