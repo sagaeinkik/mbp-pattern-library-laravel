@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { useForm } from "@inertiajs/react"
 
 interface CategoryFormProps {
-    catSuccess: () => void; 
+    catSuccess: (name: string) => void; 
 }
 
 export default function CategoryForm( { catSuccess }: CategoryFormProps) {
@@ -16,7 +16,7 @@ export default function CategoryForm( { catSuccess }: CategoryFormProps) {
 
         post(route('categories.new'), {
             onSuccess: () => {
-                catSuccess();
+                catSuccess(data.name);
             }
         })
     }

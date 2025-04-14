@@ -20,7 +20,8 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
     //States and refs
     const [imageThumbnails, setImageThumbnails] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [newCatName, setNewCatName] = useState<string>("");
 
     //Breadcrumbs
     const breadCrumbs = [
@@ -37,22 +38,32 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
     });
 
     //Successfully added category
-    const categorySuccess = () => {
+    const categorySuccess = (name: string) => {
+        setNewCatName(name);
         //Close modal
         setDialogOpen(false);
     }
     
-
+    
     // Form submission
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route("patterns.new"))
     }
-
+    
     //Dismount cleanup thumbnail URLS
     useEffect(() => {
         return () => cleanUpThumbnails(imageThumbnails);
-    }, [imageThumbnails])
+    }, [imageThumbnails]);
+    useEffect(() => {
+        if(newCatName.length > 0) {
+            //Find category ID
+            const category = categories.find(cat => cat.name === newCatName);
+            if(category) {
+                setData("category_id", String(category.id));
+            }
+        };
+    }, [categories]);
 
 
     return (
@@ -76,7 +87,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
                 {errors.category_id && <p className="text-red-500">{errors.category_id}</p>}
                 <div className="category flex gap-4 items-center">
 
-                    <select name="category" id="category_id" value="choose" onChange={(e) => setData("category_id", e.target.value)} className="mt-2 mb-4 border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 min-w-0 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive">
+                    <select name="category" id="category_id" value={data.category_id ? data.category_id : "choose" } onChange={(e) => setData("category_id", e.target.value)} className="mt-2 mb-4 border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 min-w-0 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive">
                         <option value="choose" disabled>Choose</option>
                         {/* Loop through categories */}
                         {categories.map((category) => (
@@ -94,7 +105,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
                                 Add new category
                             </DialogTitle>
                             <DialogDescription>
-                                Can't find the category you're looking for? Add it to the list, quick and simple!
+                                Can't find the category you're looking for? Add it to the list real quick!
                             </DialogDescription>
                             {/* Autoselect value added in modal into select list */}
                             <CategoryForm catSuccess={categorySuccess} />
