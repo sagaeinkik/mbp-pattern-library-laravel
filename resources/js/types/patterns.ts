@@ -17,3 +17,8 @@ export interface Pattern {
     pattern_previews: PatternPreview[]
     category?: Category;
 }
+
+export interface PatternJson {
+    title: string; 
+    pattern_data: string;
+}

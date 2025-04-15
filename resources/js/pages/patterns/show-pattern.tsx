@@ -1,10 +1,18 @@
+//Graphical
 import PatternsLayout from "@/layouts/PatternsLayout"
-import { Pattern, PatternPreview } from "@/types/patterns"
-import { Link } from "@inertiajs/react"
-import { ArrowLeft } from "lucide-react"
 import ClipboardCopyButton from "@/components/clipboard-copy-btn"
 import ShowPageHeading from "@/components/ui/showpage-heading"
 import ImageGallery from "react-image-gallery";
+import { Link } from "@inertiajs/react"
+import { ArrowLeft, Download } from "lucide-react"
+import { Button } from "@/components/ui/button";
+
+//Interfaces
+import { Pattern, PatternPreview } from "@/types/patterns"
+
+//Functions
+import { handleJsonDownload } from "@/lib/handleJson"
+
 
 export default function ShowPattern({ pattern }: { pattern: Pattern }) {
 
@@ -22,6 +30,7 @@ export default function ShowPattern({ pattern }: { pattern: Pattern }) {
     return (
         <PatternsLayout title={pattern.title + " details"} breadcrumbs={breadCrumbs}>
             <Link href={route("patterns.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground items-center w-fit"><ArrowLeft size={15} />Back to all patterns</Link>
+            <Button onClick={() => handleJsonDownload({title: pattern.title, pattern_data: pattern.pattern_data})}><Download />Download as JSON</Button>
             <ShowPageHeading headingText={pattern.title} route={route("patterns.edit", { pattern })} value={"Handle pattern"} />
 
             {/* Pattern description */}

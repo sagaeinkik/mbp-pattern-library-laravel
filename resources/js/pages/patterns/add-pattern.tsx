@@ -15,6 +15,7 @@ import { WpPatternJson } from "@/types/wpjson";
 import { useForm } from "@inertiajs/react";
 import { useState, useEffect, useRef } from "react";
 import { handleNewFiles, handleDeletePreview, cleanUpThumbnails } from "@/lib/patternThumbnails"
+import { handleJsonUpload } from "@/lib/handleJson";
 
 
 export default function AddPattern({ categories }: { categories: Category[] }) {
@@ -38,42 +39,6 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
         category_id: "",
         pattern_previews: [] as File[],
     });
-
-    // JSON upload
-    const handleJsonUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormError(null);
-        const file = e.target.files?.[0];
-
-        if(!file) return; 
-
-        const reader = new FileReader();
-
-        //Get file content
-        reader.onload = (event: ProgressEvent<FileReader>) => {
-            const text = event.target?.result; 
-            //Parse JSON
-            try {
-                if(typeof text === "string") {
-                    const json = JSON.parse(text) as WpPatternJson;
-
-                    //Check if valid block pattern JSON
-                    if(!json.title || !json.content) {
-                        setFormError("File is not a valid pattern JSON.");
-                        return;
-                    }
-
-                    //Populate fields with file data
-                    setData("title", json.title);
-                    setData("pattern_data", json.content);
-                }
-            } catch (error) {
-                setFormError("Invalid JSON file");
-            }
-        }
-
-        reader.readAsText(file);
-    }
-
 
     //Successfully added category
     const categorySuccess = (name: string) => {
@@ -113,7 +78,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
                 { formError && <p className="text-red-500 my-4">{formError}</p> }
                 <h2 className="mb-3 text-lg">Populate fields from JSON-file</h2>
                 <label htmlFor="json">Upload file:</label>
-                <Input type="file" accept=".json" name="json" id="json" className="mt-2 mb-4" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleJsonUpload(e)} />
+                <Input type="file" accept=".json" name="json" id="json" className="mt-2 mb-4" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleJsonUpload(e, setFormError, setData)} />
 
                 <label htmlFor="title">Pattern title:</label>
                 {errors.title && <p className="text-red-500">{errors.title}</p>}
