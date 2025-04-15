@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger, DialogDescription } 
 
 //Interfaces
 import { Category } from "@/types/categories";
+import { WpPatternJson } from "@/types/wpjson";
 
 //Functions
 import { useForm } from "@inertiajs/react";
@@ -22,6 +23,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [newCatName, setNewCatName] = useState<string>("");
+    const [formError, setFormError] = useState<string | null>(null);
 
     //Breadcrumbs
     const breadCrumbs = [
@@ -37,6 +39,42 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
         pattern_previews: [] as File[],
     });
 
+    // JSON upload
+    const handleJsonUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormError(null);
+        const file = e.target.files?.[0];
+
+        if(!file) return; 
+
+        const reader = new FileReader();
+
+        //Get file content
+        reader.onload = (event: ProgressEvent<FileReader>) => {
+            const text = event.target?.result; 
+            //Parse JSON
+            try {
+                if(typeof text === "string") {
+                    const json = JSON.parse(text) as WpPatternJson;
+
+                    //Check if valid block pattern JSON
+                    if(!json.title || !json.content) {
+                        setFormError("File is not a valid pattern JSON.");
+                        return;
+                    }
+
+                    //Populate fields with file data
+                    setData("title", json.title);
+                    setData("pattern_data", json.content);
+                }
+            } catch (error) {
+                setFormError("Invalid JSON file");
+            }
+        }
+
+        reader.readAsText(file);
+    }
+
+
     //Successfully added category
     const categorySuccess = (name: string) => {
         setNewCatName(name);
@@ -48,6 +86,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
     // Form submission
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormError(null);
         post(route("patterns.new"))
     }
     
@@ -56,7 +95,7 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
         return () => cleanUpThumbnails(imageThumbnails);
     }, [imageThumbnails]);
     useEffect(() => {
-        if(newCatName.length > 0) {
+        if(newCatName) {
             //Find category ID
             const category = categories.find(cat => cat.name === newCatName);
             if(category) {
@@ -69,19 +108,25 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
     return (
         <PatternsLayout title="Add Pattern" breadcrumbs={breadCrumbs}>
             <h1 className="text-2xl">Add new pattern</h1>
+            <p className="my-2 text-muted-foreground">Upload a JSON-file, or fill in fields manually.</p>
             <form onSubmit={handleSubmit} className="mt-4 md:w-4/5 lg:w">
+                { formError && <p className="text-red-500 my-4">{formError}</p> }
+                <h2 className="mb-3 text-lg">Populate fields from JSON-file</h2>
+                <label htmlFor="json">Upload file:</label>
+                <Input type="file" accept=".json" name="json" id="json" className="mt-2 mb-4" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleJsonUpload(e)} />
 
                 <label htmlFor="title">Pattern title:</label>
                 {errors.title && <p className="text-red-500">{errors.title}</p>}
-                <Input type="text" id="title" className="mt-2 mb-4" onChange={(e) => setData("title", e.target.value)} />
+                <Input type="text" id="title" className="mt-2 mb-4" value={data.title} onChange={(e) => setData("title", e.target.value)} />
 
                 <label htmlFor="description">Description:</label>
                 {errors.description && <p className="text-red-500">{errors.description}</p>}
                 <Input type="text" id="description" className="mt-2 mb-4" onChange={(e) => setData("description", e.target.value)} />
 
+
                 <label htmlFor="pattern_data">Block pattern JSON:</label>
                 {errors.pattern_data && <p className="text-red-500">{errors.pattern_data}</p>}
-                <textarea name="pattern_data" id="pattern_data" onChange={(e) => setData("pattern_data", e.target.value)} className="font-mono mt-2 mb-4 h-60 border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"></textarea>
+                <textarea name="pattern_data" id="pattern_data" value={data.pattern_data} onChange={(e) => setData("pattern_data", e.target.value)} className="font-mono mt-2 mb-4 h-60 border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"></textarea>
 
                 <label htmlFor="category_id">Category:</label>
                 {errors.category_id && <p className="text-red-500">{errors.category_id}</p>}
@@ -107,7 +152,6 @@ export default function AddPattern({ categories }: { categories: Category[] }) {
                             <DialogDescription>
                                 Can't find the category you're looking for? Add it to the list real quick!
                             </DialogDescription>
-                            {/* Autoselect value added in modal into select list */}
                             <CategoryForm catSuccess={categorySuccess} />
                         </DialogContent>
                     </Dialog>
