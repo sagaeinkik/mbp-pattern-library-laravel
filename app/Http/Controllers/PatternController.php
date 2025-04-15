@@ -63,7 +63,7 @@ class PatternController extends Controller
         }
 
         //Redirect to patterns page
-        return to_route("patterns.all");
+        return to_route("patterns.details", $pattern->id);
     }
 
     /**
@@ -139,7 +139,7 @@ class PatternController extends Controller
             }
         }
 
-        return to_route("patterns.all");
+        return to_route("patterns.details", $pattern->id);
     }
 
     /**

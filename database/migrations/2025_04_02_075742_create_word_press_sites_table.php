@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('word_press_sites', function (Blueprint $table) {
+        Schema::create('wordpress_sites', function (Blueprint $table) {
             $table->id();
             $table->string("url")->unique();
             $table->string("key");
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('word_press_sites');
+        Schema::dropIfExists('wordpress_sites');
     }
 };

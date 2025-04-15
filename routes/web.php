@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatternController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WPSiteController;
 
 
 Route::get('/', function (Request $request) {
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "destroy" => "categories.delete"
     ]);
 
+    //Block patterns
     Route::resource("patterns", PatternController::class)->names([
         "index" => "patterns.all",
         "create" => "patterns.add", 
@@ -49,9 +51,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
 
     //Wordpress sites
-    Route::get("wordpress", function (){
-        return Inertia::render("wpsites/index");
-    })->name("wordpress.index");
+    Route::resource("wordpress", WPSiteController::class)->names([
+        "index" => "wordpress.all", 
+        "create" => "wordpress.add",
+        "store" => "wordpress.new",
+        "show" => "wordpress.details",
+    ]);
 
 });
 

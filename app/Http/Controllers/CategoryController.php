@@ -86,8 +86,8 @@ class CategoryController extends Controller
         //Update in db
         $category->update($validCategory);
 
-        //Redirect to index
-        return to_route("categories.all");
+        //Redirect to resource
+        return to_route("categories.details", $category->id);
     }
 
     /**

@@ -15,7 +15,7 @@ export default function WPSitesLayout({ title, children, breadcrumbs = [] }: WPS
 const defaultBreadcrumbs: BreadcrumbItem[] = [
     {
         title: 'WordPress Sites',
-        href: route('wordpress.index'),
+        href: route('wordpress.all'),
     },
 ];
   

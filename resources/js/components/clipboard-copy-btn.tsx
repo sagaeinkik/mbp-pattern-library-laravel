@@ -4,10 +4,11 @@ import { useState } from 'react'
 
 interface ClipboardCopyButtonProps {
     copyText: string;
+    btnText?: string;
     className?: string;
 }
 
-export default function ClipboardCopyButton( { copyText, className } : ClipboardCopyButtonProps) {
+export default function ClipboardCopyButton( { copyText, className, btnText } : ClipboardCopyButtonProps) {
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const [copyError, setCopyError] = useState<boolean>(false);
 
@@ -24,7 +25,7 @@ export default function ClipboardCopyButton( { copyText, className } : Clipboard
     //Button value
     const buttonValue = () => {
         if (!copySuccess && !copyError) {
-            return "Copy";
+            return "Copy" + (btnText ? ` ${btnText}` : "");
         } else if (!copySuccess && copyError) {
             return "Error";
         } else {

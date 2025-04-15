@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 
 
-class WordPressSite extends Model
+class WordpressSite extends Model
 {
     protected $fillable = [
         "url", 

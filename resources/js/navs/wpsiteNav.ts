@@ -5,17 +5,13 @@ import { CirclePlus, List } from 'lucide-react';
 const patternNav: NavItem[] = [
     {
         title: "Connected WordPress sites",
-        href: "#",
+        href: route("wordpress.all"),
         icon: List
     },
     {
         title: "Connect site",
-        href: "#",
+        href: route("wordpress.add"),
         icon: CirclePlus
-    }, 
-    {
-        title: "Something else entirely", 
-        href: "#"
     }
 ];
 

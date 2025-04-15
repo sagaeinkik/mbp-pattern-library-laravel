@@ -26,7 +26,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: "WordPress Sites", 
-        href: route("wordpress.index"),
+        href: route("wordpress.all"),
         icon: MonitorUp
     }
 ];
