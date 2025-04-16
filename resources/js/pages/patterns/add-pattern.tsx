@@ -9,7 +9,6 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger, DialogDescription } 
 
 //Interfaces
 import { Category } from "@/types/categories";
-import { WpPatternJson } from "@/types/wpjson";
 
 //Functions
 import { useForm } from "@inertiajs/react";

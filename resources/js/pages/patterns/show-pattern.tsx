@@ -6,15 +6,17 @@ import ImageGallery from "react-image-gallery";
 import { Link } from "@inertiajs/react"
 import { ArrowLeft, Download } from "lucide-react"
 import { Button } from "@/components/ui/button";
+import PatternWPPopover from "@/components/pattern-wp-popover";
 
 //Interfaces
 import { Pattern, PatternPreview } from "@/types/patterns"
+import { WPSite } from "@/types/wpsite";
 
 //Functions
 import { handleJsonDownload } from "@/lib/handleJson"
 
 
-export default function ShowPattern({ pattern }: { pattern: Pattern }) {
+export default function ShowPattern({ pattern, wpSites }: { pattern: Pattern, wpSites: WPSite[] }) {
 
     //Breadcrumbs
     const breadCrumbs = [
@@ -30,8 +32,9 @@ export default function ShowPattern({ pattern }: { pattern: Pattern }) {
     return (
         <PatternsLayout title={pattern.title + " details"} breadcrumbs={breadCrumbs}>
             <Link href={route("patterns.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground text-wrap break-all items-center w-fit"><ArrowLeft size={15} />Back to all patterns</Link>
-            <Button onClick={() => handleJsonDownload({title: pattern.title, pattern_data: pattern.pattern_data})}><Download />Download as JSON</Button>
+            <Button onClick={() => handleJsonDownload({ title: pattern.title, pattern_data: pattern.pattern_data })} variant="secondary" className="hover:bg-primary"><Download />Download as JSON</Button>
             <ShowPageHeading headingText={pattern.title} route={route("patterns.edit", { pattern })} value={"Handle pattern"} />
+            {pattern.category && <p className="-mt-2 text-sm">Category: {pattern.category.name}</p>}
 
             {/* Pattern description */}
             <h2 className="text-xl mt-6">Description</h2>
@@ -41,9 +44,11 @@ export default function ShowPattern({ pattern }: { pattern: Pattern }) {
             <div className="my-6 w-2/3 mx-auto">
                 <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} />
             </div>
+
             {/* Add to WP */}
-            <h2 className="text-xl mt-6">Add to WordPress Site</h2>
-            <p>(display wordpress sites here)</p>
+            <PatternWPPopover wpSites={wpSites} />
+
+            {/* Pattern preview */}
 
             {/* Pattern data */}
             <h2 className="text-xl mt-6">Pattern data</h2>

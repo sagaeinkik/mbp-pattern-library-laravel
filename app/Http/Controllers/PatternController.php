@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Pattern;
 use App\Models\Category;
 use App\Models\PatternPreview;
+use App\Models\WordpressSite;
 use App\Http\Requests\Pattern\StorePatternRequest;
 use App\Http\Requests\Pattern\UpdatePatternRequest;
 use Illuminate\Support\Facades\Storage;
@@ -74,8 +75,12 @@ class PatternController extends Controller
         //Get pattern with previews and category
         $pattern = Pattern::with(["patternPreviews", "category"])->find($pattern->id);
 
+        //All Wp-sites
+        $wpSites = WordpressSite::all();
+
         return Inertia::render("patterns/show-pattern", [
-            "pattern" => $pattern
+            "pattern" => $pattern, 
+            "wpSites" => $wpSites
         ]);
     }
 
