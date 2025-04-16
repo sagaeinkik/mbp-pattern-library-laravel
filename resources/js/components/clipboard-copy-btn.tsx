@@ -2,13 +2,16 @@ import { Button } from './ui/button'
 import { ClipboardCopy } from 'lucide-react'
 import { useState } from 'react'
 
+type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+
 interface ClipboardCopyButtonProps {
     copyText: string;
     btnText?: string;
     className?: string;
+    variant?: ButtonVariant;
 }
 
-export default function ClipboardCopyButton( { copyText, className, btnText } : ClipboardCopyButtonProps) {
+export default function ClipboardCopyButton( { copyText, className, btnText, variant } : ClipboardCopyButtonProps) {
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const [copyError, setCopyError] = useState<boolean>(false);
 
@@ -34,6 +37,6 @@ export default function ClipboardCopyButton( { copyText, className, btnText } : 
     }
 
     return (
-        <Button onClick={copyToClipboard} className={className}><ClipboardCopy /> {buttonValue()}</Button>
+        <Button variant={variant ? variant : "default"} onClick={copyToClipboard} className={className}><ClipboardCopy /> {buttonValue()}</Button>
     )
 }

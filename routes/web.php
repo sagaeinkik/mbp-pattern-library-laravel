@@ -55,8 +55,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "index" => "wordpress.all", 
         "create" => "wordpress.add",
         "store" => "wordpress.new",
-        "show" => "wordpress.details",
+        "edit" => "wordpress.edit",
+        "update" => "wordpress.update",
+        "destroy" => "wordpress.delete"
     ]);
+
 
 });
 

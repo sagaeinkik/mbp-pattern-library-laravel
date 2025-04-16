@@ -49,7 +49,7 @@ export default function EditCategory({ category }: { category: Category}) {
             <h2 className="text-xl">Delete category</h2>
             <p>Be advised: deleting the category will also remove all patterns associated with the category.</p>
             { confirmDelete && <p className="mt-3 text-red-600 dark:text-red-400">Are you absolutely certain you want to delete this category? This action cannot be undone. Deleted categories and associated patterns cannot be recovered.</p>}
-            <Button className="bg-red-700 dark:bg-red-800 hover:bg-red-900 hover:text-background my-4 text-background dark:text-primary-foreground dark:hover:text-primary-foreground" onClick={() => { handleConfirm(confirmDelete, setConfirmDelete, handleDelete) }}>{ confirmDelete ? "Confirm delete" : "Delete"}</Button>
+            <Button variant="destructive" className="mt-4" onClick={() => { handleConfirm(confirmDelete, setConfirmDelete, handleDelete) }}>{ confirmDelete ? "Confirm delete" : "Delete"}</Button>
 
         </CategoriesLayout>
     )

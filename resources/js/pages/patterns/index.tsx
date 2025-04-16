@@ -36,8 +36,8 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
             {filteredPatterns.length === 0 ? <p>No patterns available</p> : ""}
             <div className="my-4 flex flex-wrap gap-4 w-full">
                 {
-                    filteredPatterns.map((pattern) => (
-                        <PatternCard key={pattern.id} pattern={pattern} />
+                    filteredPatterns.map((pattern, index) => (
+                        <PatternCard key={`${pattern.id}_${index}`} pattern={pattern} />
                     ))
                 }
             </div>

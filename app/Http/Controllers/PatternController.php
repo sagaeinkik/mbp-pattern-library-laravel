@@ -17,7 +17,7 @@ class PatternController extends Controller
      */
     public function index()
     {
-        $patterns = Pattern::with(["patternPreviews", "category"])->get();
+        $patterns = Pattern::with(["patternPreviews", "category"])->latest()->get();
 
         return Inertia::render("patterns/index", [
             "patterns" => $patterns, 
@@ -63,7 +63,7 @@ class PatternController extends Controller
         }
 
         //Redirect to patterns page
-        return to_route("patterns.details", $pattern->id);
+        return redirect()->route("patterns.details", $pattern->id);
     }
 
     /**
@@ -139,7 +139,7 @@ class PatternController extends Controller
             }
         }
 
-        return to_route("patterns.details", $pattern->id);
+        return redirect()->route("patterns.details", $pattern->id);
     }
 
     /**
@@ -150,6 +150,6 @@ class PatternController extends Controller
         
         $pattern::destroy($pattern->id);
 
-        return to_route("patterns.all");
+        return redirect()->route("patterns.all");
     }
 }

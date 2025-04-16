@@ -29,7 +29,7 @@ export default function ShowPattern({ pattern }: { pattern: Pattern }) {
 
     return (
         <PatternsLayout title={pattern.title + " details"} breadcrumbs={breadCrumbs}>
-            <Link href={route("patterns.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground items-center w-fit"><ArrowLeft size={15} />Back to all patterns</Link>
+            <Link href={route("patterns.all")} className="mb-4 flex gap-1 text-sm text-foreground/60 hover:text-foreground text-wrap break-all items-center w-fit"><ArrowLeft size={15} />Back to all patterns</Link>
             <Button onClick={() => handleJsonDownload({title: pattern.title, pattern_data: pattern.pattern_data})}><Download />Download as JSON</Button>
             <ShowPageHeading headingText={pattern.title} route={route("patterns.edit", { pattern })} value={"Handle pattern"} />
 
@@ -47,10 +47,10 @@ export default function ShowPattern({ pattern }: { pattern: Pattern }) {
 
             {/* Pattern data */}
             <h2 className="text-xl mt-6">Pattern data</h2>
-            <pre className="p-6 my-4 rounded-xl border text-xs bg-popover max-h-8xlh overflow-scroll relative">
+            <div className="p-6 my-4 rounded-xl border bg-popover overflow-x-scroll max-h-8xlh overflow-y-scroll whitespace-pre-line text-wrap break-all relative">
                 <ClipboardCopyButton copyText={pattern.pattern_data} className="absolute right-4 top-4 dark:hover:bg-background font-sans" />
-                <code className="w-full">{pattern.pattern_data}</code>
-            </pre>
+                <code className="text-xs">{pattern.pattern_data}</code>
+            </div>
 
 
         </PatternsLayout>

@@ -14,7 +14,7 @@ class WPSiteController extends Controller
      */
     public function index()
     {
-        $wpSites = WordpressSite::all(); 
+        $wpSites = WordpressSite::latest()->get();
 
         return Inertia::render("wpsites/index", [
             "wpSites" => $wpSites
@@ -35,46 +35,53 @@ class WPSiteController extends Controller
     public function store(WPSiteRequest $wpRequest)
     {
         $validatedSite = $wpRequest->validated();
-        
+
         //Create new site
         $wpSite = WordpressSite::create($validatedSite);
 
-        return to_route("wordpress.details", $wpSite->id);
+        return redirect()->route("wordpress.all");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(WordpressSite $WPSite)
+    public function show(WordpressSite $wordpress)
     {
-        $wpSite = WordpressSite::find($WPSite);
-
-        return Inertia::render("wpsites/show-wordpress-site", [
-            "wpSite" => $wpSite
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(WordpressSite $wordpress)
     {
-        //
+        return Inertia::render("wpsites/edit-wordpress-site", [
+            "wpSite" => $wordpress
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(WPSiteRequest $wpRequest, WordpressSite $wordpress)
     {
-        //
+        //Validate
+        $validatedSite = $wpRequest->validated();
+
+        //Update
+        $wordpress->update($validatedSite);
+
+        return redirect()->route("wordpress.all");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(WordpressSite $wordpress)
     {
-        //
+        //Delete site
+        $wordpress->delete();
+
+        return redirect()->route("wordpress.all");
     }
 }

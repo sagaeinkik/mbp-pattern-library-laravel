@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         // Get all categories
-        $categories = Category::withCount("pattern")->get();
+        $categories = Category::withCount("pattern")->latest()->get();
 
         // Render view with categories
         return Inertia::render("categories/index", [
@@ -47,13 +47,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //Get category with patterns and images included
-        $category = Category::where("id", $id)->with("pattern.patternPreviews")->first();
         // Render view with category
         if ($category) {
-
+            $category->loadMissing("pattern.patternPreviews");
+            
             return Inertia::render("categories/show-category", [
                 "category" => $category
             ]);
@@ -87,7 +86,7 @@ class CategoryController extends Controller
         $category->update($validCategory);
 
         //Redirect to resource
-        return to_route("categories.details", $category->id);
+        return redirect()->route("categories.details", $category->id);
     }
 
     /**
@@ -96,9 +95,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //Delete from db
-        $category::destroy($category->id);
+        $category->delete();
 
         //Redirect to index
-        return to_route("categories.all");
+        return redirect()->route("categories.all");
     }
 }
