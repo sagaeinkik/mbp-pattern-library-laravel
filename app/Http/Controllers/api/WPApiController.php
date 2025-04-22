@@ -42,7 +42,7 @@ class WPApiController extends Controller
             return response()->json(['message' => 'Pattern not found'], 404);
         }
 
-        // Turn into WordPress BP JSON format
+        // Turn into WordPress block patterns specific json format
         $patternJson = [
             "__file" => "wp_block",
             "title" => $pattern->title, 

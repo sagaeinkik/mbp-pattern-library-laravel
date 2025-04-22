@@ -2,7 +2,7 @@ import WPSitesLayout from "../../layouts/WPsitesLayout";
 import { WPSite } from "@/types/wpsite";
 import WPCard from "@/components/wp-card";
 import Searchbar from "@/components/searchbar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function WPSitesIndex({ wpSites }: { wpSites: WPSite[] }) {
     const [searchQuery, setSearchQuery] = useState<string>("");
