@@ -25,6 +25,8 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
     //Search query filter
     filteredPatterns = filteredPatterns.filter((pattern: Pattern) => pattern.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
+
+
     return (
         <PatternsLayout title="Patterns">
             <div className="w-full md:grid md:grid-cols-2 gap-5 justify-between items-end">

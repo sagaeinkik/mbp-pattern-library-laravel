@@ -2,6 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import DashboardCard from '@/components/dashboard-card';
 import { Check } from 'lucide-react';
+import { Head } from '@inertiajs/react';
 
 export default function Dashboard( { patternCount, categoryCount, wordpressCount} : { patternCount: number, categoryCount: number, wordpressCount: number } ) {
     const breadcrumbs: BreadcrumbItem[] = [
@@ -24,6 +25,7 @@ export default function Dashboard( { patternCount, categoryCount, wordpressCount
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title="Dashboard" />
             <div className="p-4">
                 <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
                 <p>Hi. Welcome to the pattern library.</p>

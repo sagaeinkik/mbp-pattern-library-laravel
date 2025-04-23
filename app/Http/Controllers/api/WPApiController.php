@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Pattern;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\PatternResource;
+use App\Http\Resources\PatternJsonResource;
 
 class WPApiController extends Controller
 {
@@ -43,15 +44,7 @@ class WPApiController extends Controller
             return response()->json(['message' => 'Pattern not found'], 404);
         }
 
-        // Turn into WordPress block patterns specific json format
-        $patternJson = [
-            "__file" => "wp_block",
-            "title" => $pattern->title, 
-            "content" => $pattern->pattern_data,
-            "syncStatus" => "unsynced"
-        ];
-
-        return response()->json($patternJson, 200);
+        return response()->json(new PatternJsonResource($pattern), 200);
     }
 
     /**

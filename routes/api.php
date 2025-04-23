@@ -6,7 +6,7 @@ use App\Http\Middleware\HasValidWPSiteKey;
 use App\Http\Controllers\api\WPApiController;
 
 Route::get('/hello', function (Request $request) {
-    return response()->json(['message' => 'Hello, World!']);
+    return response()->json(['message' => "Hi! I made this. I hope you like it. /Saga"]);
 })->middleware(HasValidWPSiteKey::class);
 
 Route::middleware(HasValidWPSiteKey::class)->group(function () {
