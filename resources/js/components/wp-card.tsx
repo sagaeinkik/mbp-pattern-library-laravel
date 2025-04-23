@@ -14,7 +14,7 @@ export default function WPCard({ wpSite }: { wpSite: WPSite }) {
         setShowKey(!showKey);
     }
     return (
-        <div className="p-4 border rounded-md shadow-md mb-4 flex items-center justify-between">
+        <div className="p-4 border rounded-md shadow-md mb-4 flex gap-3 items-center justify-between">
             <div>
                 <h2 className="text-lg">{wpSite.url}</h2>
                 <div className="flex items-center gap-4 mt-3">

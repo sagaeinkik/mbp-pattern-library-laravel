@@ -2,14 +2,16 @@ import PatternsLayout from "@/layouts/PatternsLayout";
 import PatternCard from "@/components/pattern-card";
 import Searchbar from "@/components/searchbar";
 import SelectList from "@/components/select-list";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pattern } from "@/types/patterns";
-
+import Pagination from "@/components/ui/pagination";
 
 
 export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchFilter, setSearchFilter] = useState<string>("All");
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage = 16;
 
     //Unique categories
     let categories = patterns.map((pattern) => pattern.category!.name);
@@ -25,7 +27,16 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
     //Search query filter
     filteredPatterns = filteredPatterns.filter((pattern: Pattern) => pattern.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
+    //Pagination
+    const totalPages = Math.ceil(filteredPatterns.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedPatterns = filteredPatterns.slice(startIndex, endIndex);
 
+    //Reset pagination when search query or filter changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, searchFilter]);
 
     return (
         <PatternsLayout title="Patterns">
@@ -35,14 +46,16 @@ export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
             </div>
 
             <h1 className="text-2xl">Available patterns</h1>
-            {filteredPatterns.length === 0 ? <p>No patterns available</p> : ""}
+            {paginatedPatterns.length === 0 ? <p>No patterns available</p> : ""}
             <div className="my-4 flex flex-wrap gap-4 w-full">
                 {
-                    filteredPatterns.map((pattern, index) => (
+                    paginatedPatterns.map((pattern, index) => (
                         <PatternCard key={`${pattern.id}_${index}`} pattern={pattern} />
                     ))
                 }
             </div>
+
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
         </PatternsLayout>
     )
 }
