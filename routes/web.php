@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatternController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WPSiteController;
+use App\Models\Pattern;
+use App\Models\WordpressSite;
+use App\Models\Category;
 
 
 Route::get('/', function (Request $request) {
@@ -25,7 +28,17 @@ Route::get('/', function (Request $request) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+
+        //Get counts
+        $patternCount = Pattern::count();
+        $categoryCount = Category::count();
+        $wordpressCount = WordpressSite::count();
+
+        return Inertia::render('dashboard', [
+            'patternCount' => $patternCount,
+            'categoryCount' => $categoryCount,
+            'wordpressCount' => $wordpressCount,
+        ]);
     })->name('dashboard');
 
     //Categories

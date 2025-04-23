@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pattern;
+use App\Http\Resources\PatternResource;
 
 class WPApiController extends Controller
 {
@@ -19,7 +20,7 @@ class WPApiController extends Controller
         if($patterns->isEmpty()) {
             return response()->json(['message' => 'No patterns found'], 404);
         }
-        return response()->json($patterns, 200);
+        return response()->json(PatternResource::collection($patterns), 200);
     }
 
     /**
