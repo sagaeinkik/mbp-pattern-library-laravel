@@ -41,10 +41,7 @@ class WPApiController extends Controller
         $site->activated_at = now();
         $site->save();
 
-        return response()->json([
-            'message' => 'Site key activated',
-            'site' => $site
-        ], 200);
+        return response()->json([ "message" => "Activated"], 200);
     }
 
     /**
