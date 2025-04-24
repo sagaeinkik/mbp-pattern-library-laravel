@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PatternResource;
 use App\Http\Resources\PatternJsonResource;
+use App\Models\WordpressSite;
 
 class WPApiController extends Controller
 {
@@ -30,6 +31,20 @@ class WPApiController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /* Activate site key */
+    public function activateKey(Request $request)
+    {
+        // Set activated_at to now
+        $site = WordpressSite::where('key', $request->bearerToken())->first();
+        $site->activated_at = now();
+        $site->save();
+
+        return response()->json([
+            'message' => 'Site key activated',
+            'site' => $site
+        ], 200);
     }
 
     /**

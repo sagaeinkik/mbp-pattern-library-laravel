@@ -12,4 +12,5 @@ Route::get('/hello', function (Request $request) {
 Route::middleware(HasValidWPSiteKey::class)->group(function () {
     Route::get("/block-patterns", [WPApiController::class, "blockpatterns"]);
     Route::get("/block-patterns/{id}", [WPApiController::class, "blockpatternjson"]);
+    Route::get("/", [WPApiController::class, "activateKey"]);
 });
