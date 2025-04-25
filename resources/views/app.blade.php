@@ -30,7 +30,7 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Laravel pattern library') }}</title>
+        <title inertia>{{ config('app.name', 'MBP pattern library') }}</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|inter:400,400i,700|karla:400" rel="stylesheet" />
