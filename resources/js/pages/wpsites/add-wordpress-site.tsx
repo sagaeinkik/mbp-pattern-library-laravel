@@ -2,6 +2,7 @@ import WPSitesLayout from "@/layouts/WPsitesLayout"
 import { useForm } from "@inertiajs/react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { router } from "@inertiajs/react"
 
 export default function AddWordPressSite() {
     const { errors, data, setData, post, processing } = useForm({ url: "" });
@@ -10,9 +11,14 @@ export default function AddWordPressSite() {
         { title: "Add WordPress Site", href: route("wordpress.new") }
     ]
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit =  (e: React.FormEvent) => {
         e.preventDefault();
-        post(route("wordpress.new"));
+        
+        // Remove trailing slash
+        let cleanedUrl = data.url.endsWith("/") ? data.url.replace(/\/$/, "") : data.url; 
+        setData("url", cleanedUrl);
+
+        router.post(route("wordpress.new"), {url: cleanedUrl});
     }
 
 

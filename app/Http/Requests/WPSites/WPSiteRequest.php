@@ -22,7 +22,7 @@ class WPSiteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "url" => "required|url|unique:wordpress_sites,url"
+            "url" => "required|url:https|unique:wordpress_sites,url"
         ];
     }
 }

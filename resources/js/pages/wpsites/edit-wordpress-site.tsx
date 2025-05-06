@@ -16,11 +16,16 @@ export default function EditWordPressSite({ wpSite }: { wpSite: WPSite }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route("wordpress.update", { wordpress: wpSite }))
+
+        // Remove trailing slash from URL
+        let cleanedUrl = data.url.endsWith("/") ? data.url.replace(/\/$/, "") : data.url;
+        setData("url", cleanedUrl);
+
+        router.put(route("wordpress.update", { wordpress: wpSite }), { url: cleanedUrl})
     }
 
     const handleDelete = () => {
-        if(confirmDelete) {
+        if (confirmDelete) {
             router.delete(route("wordpress.delete", { wordpress: wpSite }));
         }
     }
@@ -36,9 +41,9 @@ export default function EditWordPressSite({ wpSite }: { wpSite: WPSite }) {
             </form>
 
             <h2 className="text-xl">Delete site</h2>
-            { confirmDelete && <p className="mt-3 text-red-600 dark:text-red-400">Are you absolutely certain you want to delete this site? This action cannot be undone. Once deleted, a site cannot be recovered.</p>}
-            <Button variant="destructive" className="mt-4"onClick={() => { handleConfirm(confirmDelete, setConfirmDelete, handleDelete) }}>{ confirmDelete ? "Confirm delete" : "Delete"}</Button>
-            
+            {confirmDelete && <p className="mt-3 text-red-600 dark:text-red-400">Are you absolutely certain you want to delete this site? This action cannot be undone. Once deleted, a site cannot be recovered.</p>}
+            <Button variant="destructive" className="mt-4" onClick={() => { handleConfirm(confirmDelete, setConfirmDelete, handleDelete) }}>{confirmDelete ? "Confirm delete" : "Delete"}</Button>
+
         </WPSitesLayout>
     )
 }
