@@ -29,7 +29,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         }
                     </div>
 
-            <Button variant="outline" disabled={currentPage === totalPages} onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}>
+            <Button variant="outline" disabled={currentPage === totalPages || totalPages === 0} onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}>
                 Next
             </Button>
         </div>
