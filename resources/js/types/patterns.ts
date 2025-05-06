@@ -19,6 +19,7 @@ export interface Pattern {
 }
 
 export interface PatternJson {
+    id?: number;
     title: string; 
     pattern_data: string;
 }

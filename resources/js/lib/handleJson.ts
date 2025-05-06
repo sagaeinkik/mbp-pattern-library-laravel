@@ -76,3 +76,15 @@ export const handleJsonDownload = (pattern: PatternJson) => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url); 
 }
+
+export const formatPatternJson = (pattern: PatternJson) => {
+    const jsonData = {
+        "__file": "wp_block",
+        "title": pattern.title, 
+        "content": pattern.pattern_data,
+        "syncStatus": "unsynced",
+        "mbp_block_pattern_id": pattern.id
+    }
+
+    return jsonData;
+}

@@ -17,6 +17,7 @@ class PatternResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            "description" => $this->description,
             'category' => PatternCategoryResource::make($this->whenLoaded('category')),
             // Flatten to single level array
             'patternPreviews' => $this->whenLoaded('patternPreviews')->map(function ($preview) {
