@@ -22,7 +22,7 @@ class StorePatternRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|min:2|max:255",
+            "title" => "required|min:2|max:255|unique:patterns,title",
             "description" => "required|min:2|max:255",
             "pattern_data" => "required",
             "category_id" => "required|exists:categories,id",
