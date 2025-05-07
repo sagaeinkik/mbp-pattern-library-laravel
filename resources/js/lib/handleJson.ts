@@ -57,16 +57,6 @@ export const handleJsonDownload = (pattern: PatternJson) => {
     const url = URL.createObjectURL(blob);
 
     //Generate filename
-    /* const fileName = pattern.title
-    .toLowerCase()
-    .replace(/å/g, 'a')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o')
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '') + ".json"; */
     const fileName =
         pattern.title
             .toLowerCase()
