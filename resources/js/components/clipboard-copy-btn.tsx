@@ -1,6 +1,6 @@
-import { Button } from './ui/button'
-import { ClipboardCopy } from 'lucide-react'
-import { useState } from 'react'
+import { ClipboardCopy } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from './ui/button';
 
 type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
 
@@ -11,7 +11,7 @@ interface ClipboardCopyButtonProps {
     variant?: ButtonVariant;
 }
 
-export default function ClipboardCopyButton( { copyText, className, btnText, variant } : ClipboardCopyButtonProps) {
+export default function ClipboardCopyButton({ copyText, className, btnText, variant }: ClipboardCopyButtonProps) {
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const [copyError, setCopyError] = useState<boolean>(false);
 
@@ -20,23 +20,25 @@ export default function ClipboardCopyButton( { copyText, className, btnText, var
             //Returns promise
             await navigator.clipboard.writeText(copyText);
             setCopySuccess(true);
-        } catch (error) {
+        } catch {
             setCopyError(false);
         }
-    }
+    };
 
     //Button value
     const buttonValue = () => {
         if (!copySuccess && !copyError) {
-            return "Copy" + (btnText ? ` ${btnText}` : "");
+            return 'Copy' + (btnText ? ` ${btnText}` : '');
         } else if (!copySuccess && copyError) {
-            return "Error";
+            return 'Error';
         } else {
-            return "Copied!";
+            return 'Copied!';
         }
-    }
+    };
 
     return (
-        <Button variant={variant ? variant : "default"} onClick={copyToClipboard} className={className}><ClipboardCopy /> {buttonValue()}</Button>
-    )
+        <Button variant={variant ? variant : 'default'} onClick={copyToClipboard} className={className}>
+            <ClipboardCopy /> {buttonValue()}
+        </Button>
+    );
 }

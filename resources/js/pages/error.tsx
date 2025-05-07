@@ -1,10 +1,9 @@
-import GuestLayout from "@/layouts/guest-layout"
-
+import GuestLayout from '@/layouts/guest-layout';
 
 export default function Error() {
-  return (
-    <GuestLayout>
-        <h1 className="text-3xl mb-4">Nope</h1>
-    </GuestLayout>
-  )
+    return (
+        <GuestLayout>
+            <h1 className="mb-4 text-3xl">Nope</h1>
+        </GuestLayout>
+    );
 }

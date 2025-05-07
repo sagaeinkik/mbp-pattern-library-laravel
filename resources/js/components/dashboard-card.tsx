@@ -1,5 +1,5 @@
-import { Link } from "@inertiajs/react";
-import Blobs from "./ui/blobs";
+import { Link } from '@inertiajs/react';
+import Blobs from './ui/blobs';
 
 interface DashboardCardProps {
     className?: string;
@@ -13,9 +13,11 @@ export default function DashboardCard({ className, headline, description, linkTe
     return (
         <div className={`${className} p-4`}>
             <Blobs />
-            <h2 className="text-xl relative z-10">{headline}</h2>
+            <h2 className="relative z-10 text-xl">{headline}</h2>
             <p className="relative z-10 text-center">{description}</p>
-            <Link href={linkTo} as="button" className="relative dark:border z-10 my-2 py-3 px-5 rounded-md bg-primary hover:bg-secondary">{linkText}</Link>
+            <Link href={linkTo} as="button" className="bg-primary hover:bg-secondary relative z-10 my-2 rounded-md px-5 py-3 dark:border">
+                {linkText}
+            </Link>
         </div>
-    )
+    );
 }

@@ -1,34 +1,34 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { NavItem, type SharedData } from '@/types';
 
-import { Link, usePage } from '@inertiajs/react';
 import { Icon } from '@/components/icon';
+import { Link, usePage } from '@inertiajs/react';
 
 interface SubMenuProps {
-    navItems: NavItem[]; 
-    title?: string; 
+    navItems: NavItem[];
+    title?: string;
 }
 
-export default function SubPageSubMenu ({ navItems, title }: SubMenuProps) {
+export default function SubPageSubMenu({ navItems }: SubMenuProps) {
     const page = usePage<SharedData>();
     return (
-        <div className="border-b ml-3 mr-4 py-3">
+        <div className="mr-4 ml-3 border-b py-3">
             <NavigationMenu>
-                <NavigationMenuList className="flex gap-2 flex-wrap justify-evenly">
+                <NavigationMenuList className="flex flex-wrap justify-evenly gap-2">
                     {navItems.map((item, index) => (
                         <NavigationMenuItem key={index} className="relative">
                             <Link
-                                href={item.href} className="text-primary-foreground-links py-2 px-4 rounded-md text-sm flex gap-2 items-center text-bread hover:bg-accent hover:text-accent-foreground">
+                                href={item.href}
+                                className="text-primary-foreground-links text-bread hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-4 py-2 text-sm"
+                            >
                                 {item.icon && <Icon iconNode={item.icon} />}
                                 {item.title}
                             </Link>
-                            {page.url === item.href && (
-                                <div className="absolute bottom-0 left-0"></div>
-                            )}
+                            {page.url === item.href && <div className="absolute bottom-0 left-0"></div>}
                         </NavigationMenuItem>
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>
         </div>
-    )
+    );
 }

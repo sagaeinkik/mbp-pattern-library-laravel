@@ -13,7 +13,7 @@ export default function AppearanceToggleTab({ className = '', ...props }: HTMLAt
     ];
 
     return (
-        <div className={cn('inline-flex gap-1 rounded-lg bg-lm-medium p-1 dark:bg-middark', className)} {...props}>
+        <div className={cn('bg-lm-medium dark:bg-middark inline-flex gap-1 rounded-lg p-1', className)} {...props}>
             {tabs.map(({ value, icon: Icon, label }) => (
                 <button
                     key={value}
@@ -21,8 +21,8 @@ export default function AppearanceToggleTab({ className = '', ...props }: HTMLAt
                     className={cn(
                         'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
                         appearance === value
-                            ? 'bg-lm-bright text-lm-dark shadow-xs dark:bg-burgundy dark:text-bright'
-                            : 'text-lm-dark hover:text-black hover:bg-lm-mediumdark  dark:text-bright dark:hover:bg-midbright',
+                            ? 'bg-lm-bright text-lm-dark dark:bg-burgundy dark:text-bright shadow-xs'
+                            : 'text-lm-dark hover:bg-lm-mediumdark dark:text-bright dark:hover:bg-midbright hover:text-black',
                     )}
                 >
                     <Icon className="-ml-1 h-4 w-4" />

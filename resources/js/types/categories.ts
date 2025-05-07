@@ -1,4 +1,4 @@
-import { Pattern } from "./patterns"
+import { Pattern } from './patterns';
 
 /* Interfaces for category pages */
 

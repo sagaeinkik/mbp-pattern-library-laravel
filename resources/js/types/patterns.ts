@@ -1,5 +1,4 @@
-import { Category } from "./categories"
-
+import { Category } from './categories';
 
 /* Interfaces for pattern pages */
 export interface PatternPreview {
@@ -14,12 +13,12 @@ export interface Pattern {
     description: string;
     pattern_data: string;
     category_id: number;
-    pattern_previews: PatternPreview[]
+    pattern_previews: PatternPreview[];
     category?: Category;
 }
 
 export interface PatternJson {
     id?: number;
-    title: string; 
+    title: string;
     pattern_data: string;
 }

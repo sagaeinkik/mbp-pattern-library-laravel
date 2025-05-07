@@ -1,5 +1,5 @@
 export interface WPSite {
-    id: number; 
-    url: string; 
-    key: string; 
+    id: number;
+    url: string;
+    key: string;
 }

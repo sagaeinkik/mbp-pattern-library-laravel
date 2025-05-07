@@ -1,7 +1,7 @@
-import AppLayout from "./app-layout";
-import SubPageSubMenu from "@/components/subpage-submenu";
-import { type BreadcrumbItem, NavItem } from "@/types";
-import React from "react";
+import SubPageSubMenu from '@/components/subpage-submenu';
+import { type BreadcrumbItem, NavItem } from '@/types';
+import React from 'react';
+import AppLayout from './app-layout';
 
 //Interface
 interface SubPageLayoutProps {
@@ -13,10 +13,8 @@ interface SubPageLayoutProps {
 export default function SubPageLayout({ children, breadcrumbs, navItems }: SubPageLayoutProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <SubPageSubMenu navItems={navItems}/>
-            <div className="p-4 text-bread max-w-8xl">
-                {children}
-            </div>
+            <SubPageSubMenu navItems={navItems} />
+            <div className="text-bread max-w-8xl p-4">{children}</div>
         </AppLayout>
-    )
+    );
 }
