@@ -26,7 +26,7 @@ class StorePatternRequest extends FormRequest
             "description" => "required|min:2|max:255",
             "pattern_data" => "required",
             "category_id" => "required|exists:categories,id",
-            "pattern_previews" => "nullable|array",
+            "pattern_previews" => "nullable|array", 
             "pattern_previews.*" => "image|mimes:jpeg,png,jpg,gif|max:3000",
         ];
     }

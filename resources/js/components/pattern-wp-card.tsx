@@ -41,7 +41,7 @@ export default function PatternWPCard({ wpSite }: { wpSite: WPSite }) {
         setAdded(true);
 
       } else if (data.code && data.code === "pattern_exists") {
-        setMessage("Pattern already exists on site!");
+        setMessage("Pattern already added to this site!");
 
       }
     } catch (error) {
