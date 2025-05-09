@@ -121,11 +121,11 @@
     --popover-foreground: #000;
     --primary: #bcccdc;
     --primary-foreground: #000;
-    --secondary: #9aa6b2; /* Buttons */
+    --secondary: #aab6c1; /* Buttons */
     --secondary-foreground: #000;
-    --muted: #bcccdc;
+    --muted: #9aa6b2;
     --muted-foreground: oklch(0.556 0 0);
-    --accent: #9aa6b2;
+    --accent: #bcccdc;
     --accent-foreground: #000;
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
@@ -212,4 +212,10 @@ p {
 
 button {
     cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    .pattern-card:hover .category-tag {
+        background-color: var(--color-brightburg);
+    }
 }

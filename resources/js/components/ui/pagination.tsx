@@ -21,7 +21,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                 <button
                     key={i}
                     onClick={() => onPageChange(i + 1)}
-                    className={`px-3 py-1 border rounded ${currentPage === i + 1 ? 'bg-secondary' : ''}`}
+                    className={`px-3 py-1 border rounded hover:bg-accent ${currentPage === i + 1 ? 'bg-secondary' : ''}`}
                     >
                     {i + 1}
                 </button>

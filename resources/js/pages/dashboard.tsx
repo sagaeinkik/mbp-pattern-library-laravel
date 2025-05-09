@@ -24,8 +24,9 @@ export default function Dashboard({
         'Add and manage patterns and categories',
         'Image previews',
         'Download patterns as JSON files ready to use on WordPress',
-        'Syncronize library with WordPress sites',
-        'Quickly add patterns to WordPress sites with a click',
+        'Syncronize library with WordPress plugin',
+        'Add patterns to sites from the library',
+        'Add patterns to sites from the plugin',
         'Overview of patterns in categories',
         'Search and filter patterns, categories and WordPress sites',
     ];
@@ -63,14 +64,12 @@ export default function Dashboard({
                     />
                 </div>
                 <h2 className="mt-4 mb-2 text-xl">What is this?</h2>
+                <p>WordPress block patterns can be exported as JSON files from WordPress itself, so you can reuse them on other sites without having to recreate them all the time. That's all nice and neat, but you'd still have to import them on every site manually. The MBP Pattern Library is a digital solution designed to save you a lot of time and trouble in that regard.</p>
+                <p className="my-2">MBP Pattern Library consists of two parts; the web application (the one you're on right now) that serves as the library itself, and the WordPress plugin you can use to syncronize the library to your WordPress sites.</p>
                 <p>
-                    The Laravel Pattern Library is a place to import and export block patterns for WordPress, to make it easier for you to reuse your
-                    favorite patterns across multiple sites.
+                    You can upload block patterns to the library, browse patterns by categories, download them as JSON files, or add them to your sites with just a click from either the library or the plugin. It's ridiculously easy.
                 </p>
-                <p>
-                    You can upload block patterns, download them as JSON files, or connect the library to your WordPress site in order to quickly add
-                    the patterns to your site.
-                </p>
+                <p className="mt-2">The plugin is available for download <a href={route("wordpress.all")} className="underline decoration-dotted text-primary-foreground-links hover:text-foreground">here</a>!</p>
 
                 <div className="bg-lm-medium dark:bg-secondary my-4 rounded-xl border p-4">
                     <h2 className="mb-2 text-xl">Features</h2>

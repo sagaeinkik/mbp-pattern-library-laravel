@@ -20,9 +20,11 @@ export default function ShowPattern({ pattern, wpSites }: { pattern: Pattern; wp
     const breadCrumbs = [{ title: pattern.title, href: route('patterns.details', { pattern }) }];
 
     //Images for gallery
-    const images = pattern.pattern_previews.map((preview: PatternPreview) => ({
+    const images = pattern.pattern_previews.map((preview: PatternPreview, index: number) => ({
         original: preview.image_path,
         thumbnail: preview.image_path,
+        originalAlt: `Preview ${index} of ${pattern.title}`,
+        thumbnailAlt: `Preview ${index} of ${pattern.title}`,
     }));
 
     return (

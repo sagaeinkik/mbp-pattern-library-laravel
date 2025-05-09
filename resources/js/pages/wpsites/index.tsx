@@ -4,6 +4,7 @@ import WPCard from '@/components/wp-card';
 import { WPSite } from '@/types/wpsite';
 import { useEffect, useState } from 'react';
 import WPSitesLayout from '../../layouts/WPsitesLayout';
+import { Button } from '@/components/ui/button';
 
 export default function WPSitesIndex({ wpSites }: { wpSites: WPSite[] }) {
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -27,7 +28,29 @@ export default function WPSitesIndex({ wpSites }: { wpSites: WPSite[] }) {
     return (
         <WPSitesLayout title="WordPress Sites">
             <Searchbar onSearch={setSearchQuery} placeholder="Search sites" className="md:w-1/2" />
-            <h1 className="mb-4 text-2xl">Available WordPress Sites</h1>
+            <h1 className="mt-6 mb-2 text-2xl">Connect a WordPress site</h1>
+            <div className="mb-6">
+                <p>You can easily add WordPress block patterns from this library onto your existing WordPress site with just the click of a button.</p>
+                <p className="mt-2">Follow these steps in order to do so: </p>
+                <ol className="list-decimal list-inside">
+                    <li>First, download the MBP Pattern Library plugin for WordPress and add it to your plugin folder.</li>
+                    <li>The plugin will ask you to input the URL to the pattern library API, which is the URL of this web application and the suffix "/api".</li>
+                    <li>Next, register your WordPress site (without /wp-admin) on <a href={route("wordpress.add")} className="underline decoration-dotted text-primary-foreground-links hover:text-foreground">Add new site</a>. This will generate a unique site key.</li>
+                    <li>Copy the site key and paste it into the site key-field of the plugin, then hit activate.</li>
+                    <li>Browse <a href={route("patterns.all")} className="underline decoration-dotted text-primary-foreground-links hover:text-foreground">patterns</a>, pick one you like, and add it onto your site, just like that.</li>
+                </ol>
+                <p>You can also browse and add patterns to your WordPress site from the plugin itself; they're synced!</p>
+
+                <div className="flex justify-between items-center mt-6 gap-2">
+                    <Button className="text-md border">Download plugin</Button>
+                    <div>
+                    <p className="text-xs text-foreground/60">Got an updated version?</p>
+                    <a href="#" className="underline text-primary-foreground-links/70 hover:text-foreground text-xs">Upload it here</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 className="mb-2 text-xl">Registered WordPress sites</h2>
             {paginatedWPSites.length === 0 ? <p>No WordPress sites available</p> : ''}
 
             {paginatedWPSites.map((site: WPSite, index) => (
