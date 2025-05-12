@@ -57,7 +57,7 @@ export default function Dashboard({
                     </div>
                     <DashboardCard
                         headline="Connect to WordPress"
-                        description={`These patterns are being used on no fewer than ${wordpressCount} WordPress ${wordpressCount === 1 ? 'site' : 'sites'}. Connect your site to add block patterns to it with just a click; it's ridiculously easy.`}
+                        description={`These patterns are being used on no fewer than ${wordpressCount} WordPress ${wordpressCount === 1 ? 'site' : 'sites'}. Connect your site to add block patterns to it with just a click, quick and easy!`}
                         linkText="See the sites"
                         linkTo={route('wordpress.all')}
                         className="border-sidebar-border/70 dark:border-sidebar-border from-lm-mediumbright to-background dark:from-background dark:to-middark relative flex aspect-video flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border bg-linear-to-bl"
