@@ -1,17 +1,24 @@
+// Graphical
+import WPSitesLayout from '../../layouts/WPsitesLayout';
 import Searchbar from '@/components/searchbar';
 import Pagination from '@/components/ui/pagination';
 import WPCard from '@/components/wp-card';
-import { WPSite } from '@/types/wpsite';
-import { useEffect, useState } from 'react';
-import WPSitesLayout from '../../layouts/WPsitesLayout';
-import { Button } from '@/components/ui/button';
+import DownloadPluginButton from '@/components/download-plugin-button';
 
-export default function WPSitesIndex({ wpSites }: { wpSites: WPSite[] }) {
+// Interfaces
+import { WPSite } from '@/types/wpsite';
+// Functionality
+import { useEffect, useState } from 'react';
+import { usePage } from '@inertiajs/react';
+
+export default function WPSitesIndex() {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 10;
 
-    const initialSites = wpSites;
+    const { wpSites, pluginUrl } = usePage().props;
+
+    const initialSites = wpSites as WPSite[];
     const filteredWPSites = initialSites.filter((site: WPSite) => site.url.toLowerCase().includes(searchQuery.toLowerCase()));
 
     //Pagination
@@ -41,19 +48,14 @@ export default function WPSitesIndex({ wpSites }: { wpSites: WPSite[] }) {
                 </ol>
                 <p>You can also browse and add patterns to your WordPress site from the plugin itself; they're synced!</p>
 
-                <div className="flex justify-between items-center mt-6 gap-2">
-                    <Button className="text-md border">Download plugin</Button>
-                    <div>
-                    <p className="text-xs text-foreground/60">Got an updated version?</p>
-                    <a href="#" className="underline text-primary-foreground-links/70 hover:text-foreground text-xs">Upload it here</a>
-                    </div>
-                </div>
+                
+               <DownloadPluginButton pluginUrl={pluginUrl as string | null} />
             </div>
 
             <h2 className="mb-2 text-xl">Registered WordPress sites</h2>
             {paginatedWPSites.length === 0 ? <p>No WordPress sites available</p> : ''}
 
-            {paginatedWPSites.map((site: WPSite, index) => (
+            {paginatedWPSites.map((site: WPSite, index: number) => (
                 <WPCard key={`${site.id}_${index}`} wpSite={site} />
             ))}
 

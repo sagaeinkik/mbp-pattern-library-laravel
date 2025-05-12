@@ -73,6 +73,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         "destroy" => "wordpress.delete"
     ]);
 
+    // Plugin form
+    Route::get("plugin-form", [WPSiteController::class, "showPluginForm"])->name("plugin-form.show");
+    Route::post("plugin-form", [WPSiteController::class, "storePlugin"])->name("plugin-form.upload");
 
 });
 

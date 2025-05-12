@@ -16,8 +16,13 @@ class WPSiteController extends Controller
     {
         $wpSites = WordpressSite::latest()->get();
 
+        // Check if the plugin file exists
+        $pluginFilePath = storage_path("app/public/plugins/mbp-pattern-library.zip");
+        $fileExists = file_exists($pluginFilePath);
+
         return Inertia::render("wpsites/index", [
-            "wpSites" => $wpSites
+            "wpSites" => $wpSites, 
+            "pluginUrl" => $fileExists ? asset("storage/plugins/mbp-pattern-library.zip") : null, 
         ]);
     }
 
@@ -87,11 +92,30 @@ class WPSiteController extends Controller
     /** 
     * Show zip file-input form
     */
-    
+    public function showPluginForm () {
+        return Inertia::render("upload-plugin");
+    }
     
     /** 
     * Post zip file to storage
     */
+    public function storePlugin(Request $request) {
+        $request->validate([
+            "pluginFile" => "required|file|mimes:zip"
+        ]);
+        $uploadedFile = $request->file("pluginFile");
 
+        // Validate file name 
+        if($uploadedFile->getClientOriginalName() !== "mbp-pattern-library.zip") {
+            return back()->withErrors(["pluginFile" => "Invalid file name."]);
+        }
+
+        // Store file in storage
+        $uploadedFile->storeAs("plugins", $uploadedFile->getClientOriginalName(), "public");
+
+        return Inertia::render("upload-plugin", [
+            "success" => "Plugin uploaded successfully!"
+        ]);
+    }
 
 }
