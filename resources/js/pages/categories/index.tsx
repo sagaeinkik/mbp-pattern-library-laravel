@@ -13,7 +13,6 @@ export default function CategoriesIndex({ categories }: { categories: Category[]
 
     // Filter categories based on search query
     const initialCats = categories;
-    console.log(categories);
     const filteredCategories = initialCats.filter((category: Category) => category.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
     // Pagination

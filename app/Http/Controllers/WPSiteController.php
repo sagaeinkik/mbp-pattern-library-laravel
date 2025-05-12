@@ -20,9 +20,12 @@ class WPSiteController extends Controller
         $pluginFilePath = storage_path("app/public/plugins/mbp-pattern-library.zip");
         $fileExists = file_exists($pluginFilePath);
 
+        $url = config("app.url");
+
         return Inertia::render("wpsites/index", [
             "wpSites" => $wpSites, 
             "pluginUrl" => $fileExists ? asset("storage/plugins/mbp-pattern-library.zip") : null, 
+            "appUrl" => $url . "/api"
         ]);
     }
 

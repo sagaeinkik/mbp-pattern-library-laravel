@@ -17,13 +17,25 @@ export default function SubPageSubMenu({ navItems }: SubMenuProps) {
                 <NavigationMenuList className="flex flex-wrap justify-evenly gap-2">
                     {navItems.map((item, index) => (
                         <NavigationMenuItem key={index} className="relative">
-                            <Link
-                                href={item.href}
-                                className="text-primary-foreground-links text-bread hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-4 py-2 text-sm"
-                            >
-                                {item.icon && <Icon iconNode={item.icon} />}
-                                {item.title}
-                            </Link>
+                            {item.isExternal ? (
+                                <a
+                                    href={item.href}
+                                    className="text-primary-foreground-links text-bread hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-4 py-2 text-sm"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {item.icon && <Icon iconNode={item.icon} />}
+                                    {item.title}
+                                </a>
+                            ) : (
+                                <Link
+                                    href={item.href}
+                                    className="text-primary-foreground-links text-bread hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-4 py-2 text-sm"
+                                >
+                                    {item.icon && <Icon iconNode={item.icon} />}
+                                    {item.title}
+                                </Link>
+                            )}
                             {page.url === item.href && <div className="absolute bottom-0 left-0"></div>}
                         </NavigationMenuItem>
                     ))}

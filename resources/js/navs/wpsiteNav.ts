@@ -12,7 +12,7 @@ const patternNav: NavItem[] = [
         title: 'Add new site',
         href: route('wordpress.add'),
         icon: CirclePlus,
-    },
+    }
 ];
 
 export default patternNav;
