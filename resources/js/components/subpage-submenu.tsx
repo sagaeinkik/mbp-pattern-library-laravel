@@ -21,8 +21,6 @@ export default function SubPageSubMenu({ navItems }: SubMenuProps) {
                                 <a
                                     href={item.href}
                                     className="text-primary-foreground-links text-bread hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-4 py-2 text-sm"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                 >
                                     {item.icon && <Icon iconNode={item.icon} />}
                                     {item.title}

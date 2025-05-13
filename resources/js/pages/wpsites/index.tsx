@@ -3,7 +3,6 @@ import WPSitesLayout from '../../layouts/WPsitesLayout';
 import Searchbar from '@/components/searchbar';
 import Pagination from '@/components/ui/pagination';
 import WPCard from '@/components/wp-card';
-import DownloadPluginButton from '@/components/download-plugin-button';
 import ClipboardCopyButton from '@/components/clipboard-copy-btn';
 
 // Interfaces
