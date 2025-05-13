@@ -24,3 +24,4 @@ yarn-error.log
 /.zed
 *.zip
 *.sql.*
+.DS_Store
