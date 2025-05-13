@@ -17,7 +17,7 @@ definitions:
         script:
           - composer install --no-interaction --no-progress --optimize-autoloader --no-dev
           - npm ci
-          - env $(env | grep MIX_ | xargs) npm run production
+          - env $(env | grep MIX_ | xargs) npm run build
         artifacts:
           - vendor/**
           - public/**
