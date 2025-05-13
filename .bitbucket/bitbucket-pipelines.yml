@@ -1,0 +1,70 @@
+definitions:
+  steps:
+    # - step: &install_dev_dependencies
+    #     name: Install dev dependencies
+    #     image: lorisleiva/laravel-docker:8.2
+    #     script:
+    #       - composer install --no-interaction --no-progress --optimize-autoloader
+    #       - npm ci
+    #       - env $(env | grep MIX_ | xargs) npm run dev
+    #     artifacts:
+    #       - vendor/**
+    #       - public/**
+
+    - step: &install_dependencies
+        name: Install dependencies
+        image: lorisleiva/laravel-docker:8.2
+        script:
+          - composer install --no-interaction --no-progress --optimize-autoloader --no-dev
+          - npm ci
+          - env $(env | grep MIX_ | xargs) npm run production
+        artifacts:
+          - vendor/**
+          - public/**
+
+    - step: &compress_deployment_artifacts
+        name: Compress deployment artifacts
+        image: atlassian/default-image:4
+        script:
+          - |
+            tar --create --gzip \
+              --exclude="bootstrap/cache/*" \
+              --exclude="node_modules" \
+              --exclude="public/storage" \
+              --exclude="storage" \
+              --exclude="tests" \
+              --file artifacts.tar.gz * .bitbucket/deployment
+        artifacts:
+          - artifacts.tar.gz
+
+    - step: &deploy
+        name: Deploy to server
+        image: atlassian/default-image:4
+        clone:
+          enabled: false
+        script:
+          - base_directory=$SITE_PATH
+          - ssh_user=$SSH_USER
+          - ssh_host=$SSH_HOST
+          - ssh_port=22
+          - php_executable="php"
+          - tar -xf artifacts.tar.gz .bitbucket/deployment/prepare.sh -O | bash -se -- "$base_directory" "$ssh_user" "$ssh_host" "$ssh_port" "$php_executable"
+
+pipelines:
+  branches:
+    # stage:
+    #   - stage:
+    #       name: Deploy to Stage
+    #       deployment: Staging
+    #       steps:
+    #         - step: *install_dependencies
+    #         - step: *compress_deployment_artifacts
+    #         - step: *deploy
+    master:
+      - stage:
+          name: Deploy to Production
+          deployment: Production
+          steps:
+            - step: *install_dependencies
+            - step: *compress_deployment_artifacts
+            - step: *deploy
