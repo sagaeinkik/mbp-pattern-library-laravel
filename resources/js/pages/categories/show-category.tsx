@@ -3,10 +3,11 @@ import ShowPageHeading from '@/components/ui/showpage-heading';
 import CategoriesLayout from '@/layouts/CategoriesLayout';
 import { Category } from '@/types/categories';
 import { Pattern } from '@/types/patterns';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 
-export default function ShowCategory({ category }: { category: Category }) {
+export default function ShowCategory() {
+    const { category } = usePage<{ category: Category }>().props;
     const breadCrumbs = [{ title: category.name, href: route('categories.details', { id: category.id }) }];
 
     //Get an image from pattern previews

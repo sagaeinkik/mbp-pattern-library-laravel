@@ -13,10 +13,12 @@ import { Category } from '@/types/categories';
 //Functions
 import { handleJsonUpload } from '@/lib/handleJson';
 import { cleanUpThumbnails, handleDeletePreview, handleNewFiles } from '@/lib/patternThumbnails';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
-export default function AddPattern({ categories }: { categories: Category[] }) {
+export default function AddPattern() {
+    const { categories } = usePage<{ categories: Category[] }>().props;
+
     //States and refs
     const [imageThumbnails, setImageThumbnails] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement | null>(null);

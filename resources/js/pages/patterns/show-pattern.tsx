@@ -4,7 +4,7 @@ import PatternWPPopover from '@/components/pattern-wp-popover';
 import { Button } from '@/components/ui/button';
 import ShowPageHeading from '@/components/ui/showpage-heading';
 import PatternsLayout from '@/layouts/PatternsLayout';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowLeft, Download } from 'lucide-react';
 import ImageGallery from 'react-image-gallery';
 
@@ -15,7 +15,9 @@ import { WPSite } from '@/types/wpsite';
 //Functions
 import { handleJsonDownload } from '@/lib/handleJson';
 
-export default function ShowPattern({ pattern, wpSites }: { pattern: Pattern; wpSites: WPSite[] }) {
+export default function ShowPattern() {
+    const { pattern, wpSites } = usePage<{ pattern: Pattern; wpSites: WPSite[] }>().props;
+
     //Breadcrumbs
     const breadCrumbs = [{ title: pattern.title, href: route('patterns.details', { pattern }) }];
 
@@ -58,8 +60,6 @@ export default function ShowPattern({ pattern, wpSites }: { pattern: Pattern; wp
 
             {/* Add to WP */}
             <PatternWPPopover wpSites={wpSites} />
-
-            {/* Pattern preview */}
 
             {/* Pattern data */}
             <h2 className="mt-6 text-xl">Pattern data</h2>

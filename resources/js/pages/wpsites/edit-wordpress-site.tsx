@@ -3,10 +3,12 @@ import { Input } from '@/components/ui/input';
 import WPSitesLayout from '@/layouts/WPsitesLayout';
 import { handleConfirm } from '@/lib/deleteConfirm';
 import { WPSite } from '@/types/wpsite';
-import { router, useForm } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function EditWordPressSite({ wpSite }: { wpSite: WPSite }) {
+export default function EditWordPressSite() {
+    const { wpSite } = usePage<{ wpSite: WPSite }>().props;
+
     const { errors, data, setData, processing } = useForm({ url: wpSite.url });
     const [confirmDelete, setConfirmDelete] = useState(false);
 

@@ -18,7 +18,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                 asChild
                                 isActive={isActive}
                                 tooltip={{ children: item.title }}
-                                className={isActive ? "bg-sidebar-accent" : ""}
+                                className={isActive ? 'bg-sidebar-accent' : ''}
                             >
                                 <Link href={item.href} className="text-smallbread">
                                     {item.icon && <item.icon />}

@@ -64,12 +64,26 @@ export default function Dashboard({
                     />
                 </div>
                 <h2 className="mt-4 mb-2 text-xl">What is this?</h2>
-                <p>WordPress block patterns can be exported as JSON files from WordPress itself, so you can reuse them on other sites without having to recreate them all the time. That's all nice and neat, but you'd still have to import them on every site manually. The MBP Pattern Library is a digital solution designed to save you a lot of time and trouble in that regard.</p>
-                <p className="my-2">MBP Pattern Library consists of two parts; the web application (the one you're on right now) that serves as the library itself, and the WordPress plugin you can use to syncronize the library to your WordPress sites.</p>
                 <p>
-                    You can upload block patterns to the library, browse patterns by categories, download them as JSON files, or add them to your sites with just a click from either the library or the plugin. It's ridiculously easy.
+                    WordPress block patterns can be exported as JSON files from WordPress itself, so you can reuse them on other sites without having
+                    to recreate them all the time. That's all nice and neat, but you'd still have to import them on every site manually. The MBP
+                    Pattern Library is a digital solution designed to save you a lot of time and trouble in that regard.
                 </p>
-                <p className="mt-2">The plugin is available for download <a href={route("wordpress.all")} className="underline decoration-dotted text-primary-foreground-links hover:text-foreground">here</a>!</p>
+                <p className="my-2">
+                    MBP Pattern Library consists of two parts; the web application (the one you're on right now) that serves as the library itself,
+                    and the WordPress plugin you can use to syncronize the library to your WordPress sites.
+                </p>
+                <p>
+                    You can upload block patterns to the library, browse patterns by categories, download them as JSON files, or add them to your
+                    sites with just a click from either the library or the plugin. It's ridiculously easy.
+                </p>
+                <p className="mt-2">
+                    The plugin is available for download{' '}
+                    <a href={route('wordpress.all')} className="text-primary-foreground-links hover:text-foreground underline decoration-dotted">
+                        here
+                    </a>
+                    !
+                </p>
 
                 <div className="bg-lm-medium dark:bg-secondary my-4 rounded-xl border p-4">
                     <h2 className="mb-2 text-xl">Features</h2>

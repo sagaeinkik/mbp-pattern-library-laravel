@@ -3,10 +3,11 @@ import { Input } from '@/components/ui/input';
 import CategoriesLayout from '@/layouts/CategoriesLayout';
 import { handleConfirm } from '@/lib/deleteConfirm';
 import { Category } from '@/types/categories';
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, router, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function EditCategory({ category }: { category: Category }) {
+export default function EditCategory() {
+    const { category } = usePage<{ category: Category }>().props;
     const { errors, data, setData, put, processing } = useForm({ name: category.name });
 
     //States

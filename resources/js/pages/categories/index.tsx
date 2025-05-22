@@ -3,9 +3,11 @@ import Searchbar from '@/components/searchbar';
 import Pagination from '@/components/ui/pagination';
 import CategoriesLayout from '@/layouts/CategoriesLayout';
 import { Category } from '@/types/categories';
+import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export default function CategoriesIndex({ categories }: { categories: Category[] }) {
+export default function CategoriesIndex() {
+    const { categories } = usePage<{ categories: Category[] }>().props;
     // Search vars
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);

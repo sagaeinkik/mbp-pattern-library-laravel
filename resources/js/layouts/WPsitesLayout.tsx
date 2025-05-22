@@ -15,13 +15,13 @@ export default function WPSitesLayout({ children, breadcrumbs = [] }: WPSitesLay
     const { pluginUrl } = usePage().props;
 
     // Add plugin download link to nav
-    if(pluginUrl && !wpsiteNav.some(item => item.href === pluginUrl)) {
+    if (pluginUrl && !wpsiteNav.some((item) => item.href === pluginUrl)) {
         wpsiteNav.push({
-            title: "Download Plugin", 
+            title: 'Download Plugin',
             href: pluginUrl as string,
-            icon: Download, 
-            isExternal: true
-        })
+            icon: Download,
+            isExternal: true,
+        });
     }
 
     //Crumbs to wpsites index

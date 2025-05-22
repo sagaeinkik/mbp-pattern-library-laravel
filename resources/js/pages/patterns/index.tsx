@@ -4,9 +4,12 @@ import SelectList from '@/components/select-list';
 import Pagination from '@/components/ui/pagination';
 import PatternsLayout from '@/layouts/PatternsLayout';
 import { Pattern } from '@/types/patterns';
+import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export default function PatternsIndex({ patterns }: { patterns: Pattern[] }) {
+export default function PatternsIndex() {
+    const { patterns } = usePage<{ patterns: Pattern[] }>().props;
+
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [searchFilter, setSearchFilter] = useState<string>('All');
     const [currentPage, setCurrentPage] = useState<number>(1);

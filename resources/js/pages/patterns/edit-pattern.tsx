@@ -12,10 +12,12 @@ import { Pattern } from '@/types/patterns';
 //Functions
 import { handleConfirm } from '@/lib/deleteConfirm';
 import { cleanUpThumbnails, handleDeletePreview, handleNewFiles } from '@/lib/patternThumbnails';
-import { router, useForm } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
-export default function EditPattern({ pattern, categories }: { pattern: Pattern; categories: Category[] }) {
+export default function EditPattern() {
+    const { pattern, categories } = usePage<{ pattern: Pattern; categories: Category[] }>().props;
+
     //Form data
     const { data, setData, processing, errors } = useForm({
         title: pattern.title,
